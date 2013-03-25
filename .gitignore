@@ -57,3 +57,5 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+fritrznica/.idea/workspace.xml
