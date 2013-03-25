@@ -2,6 +2,30 @@
 
 # C extensions
 *.so
+###########
+## PyCharm
+###########
+
+.idea
+.iml
+
+
+##########
+## Django
+##########
+
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+
+###########
+## Python
+###########
+
+*.py[cod]
+
 
 # Packages
 *.egg
