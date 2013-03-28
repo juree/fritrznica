@@ -16,7 +16,8 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                state = "You're successfully logged in!"
+                #successfully logged in
+                return HttpResponseRedirect("/trznica/")
             else:
                 state = "Your account is not active, please contact the site admin."
         else:

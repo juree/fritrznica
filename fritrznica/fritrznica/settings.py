@@ -121,10 +121,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainsite',
+    'django.contrib.admin',
+    'data',
     'prva',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'trznica',
+    'activateaccount',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
