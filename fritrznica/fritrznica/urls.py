@@ -17,4 +17,5 @@ urlpatterns = patterns('',
 
     (r'^prva/$', 'prva.views.user_login'),
     (r'^$', 'prva.views.redirect_to_login'),
+    (r'^registracija/$', 'registracija.views.user_register'),
 )
