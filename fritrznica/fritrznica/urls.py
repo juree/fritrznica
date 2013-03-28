@@ -14,4 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+
+    (r'^prva/$', 'prva.views.user_login'),
+    (r'^$', 'prva.views.redirect_to_login'),
 )
