@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
 
 
 def user_login(request):
@@ -26,4 +27,8 @@ def user_login(request):
     return render_to_response('prva.html', RequestContext(request,{'state': state, 'username': username}))
 
 def redirect_to_login(request):
+    return HttpResponseRedirect("/prva/")
+
+def user_logout(request):
+    logout(request)
     return HttpResponseRedirect("/prva/")

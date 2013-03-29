@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     (r'^registracija/$', 'registracija.views.user_register'),
     (r'^trznica/$', 'trznica.views.trznica_main'),
     (r'^aktivacija/$', 'activateaccount.views.activate_acc'),
+    (r'^logout/$', 'prva.views.user_logout'),
 )
