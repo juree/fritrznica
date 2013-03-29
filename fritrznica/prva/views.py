@@ -5,7 +5,6 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 
-
 def user_login(request):
     state = "Please log in below..."
     username = password = ''
@@ -32,3 +31,13 @@ def redirect_to_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect("/prva/")
+
+
+def server_error(request, template_name='500.html'):
+    return render_to_response(template_name,
+                              context_instance = RequestContext(request)
+    )
+def not_found(request, template_name='404.html'):
+    return render_to_response(template_name,
+                              context_instance = RequestContext(request)
+    )

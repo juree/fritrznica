@@ -1,4 +1,7 @@
 # Django settings for fritrznica project.
+import os.path
+
+PROJECT_DIR = os.path.dirname(__file__)  # this is not Django setting.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -108,8 +111,10 @@ ROOT_URLCONF = 'fritrznica.urls'
 WSGI_APPLICATION = 'fritrznica.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "C:/Users/Nejc/Documents/GitHub/fritrznica/fritrznica/templates"
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    "C:/Users/Nejc/Documents/GitHub/fritrznica/fritrznica/templates",
+    os.path.join(PROJECT_DIR, '..','templates')
+
+# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
