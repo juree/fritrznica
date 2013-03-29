@@ -108,6 +108,7 @@ ROOT_URLCONF = 'fritrznica.urls'
 WSGI_APPLICATION = 'fritrznica.wsgi.application'
 
 TEMPLATE_DIRS = (
+    "C:/Users/Nejc/Documents/GitHub/fritrznica/fritrznica/templates"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -120,12 +121,15 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainsite'
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
+    'data',
+    'prva',
+    'trznica',
+    'activateaccount',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
