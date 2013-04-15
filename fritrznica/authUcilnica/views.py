@@ -25,17 +25,20 @@ def user_login(request):
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_superuser:
+                login(request,user)
+                return HttpResponseRedirect("/firstFromUcilnica/")
         user_info = ucilnica_login(username,password)
         if user_info['valid']:
             name = user_info['name']
             id = user_info['ucilnica_id']
             vpisna_st = user_info['vpisna_st']
-            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 #successfully logged in
                 return HttpResponseRedirect("/firstFromUcilnica/")
-
             else:
                 name = re.split(" +",name)
                 firstname = name[0]
@@ -44,11 +47,8 @@ def user_login(request):
                 user = authenticate(username=username, password=password)
                 login(request,user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
-
-    else:
-            state = "Login error"
-            #register user if not yet
-            #state = "Your username and/or password were incorrect."
-
-        #return HttpResponseRedirect("/firstFromUcilnica/")
+                #state = "Your username and/or password were incorrect."
+                #state = "Login error"
+                #return HttpResponseRedirect("/firstFromUcilnica/")
     return render_to_response('authUcilnica.html', RequestContext(request,{'state': state, 'username': username}))
+    state = ""
