@@ -18,5 +18,10 @@ urlpatterns = patterns('',
     (r'^registracija/$', 'registracija.views.user_register'),
     (r'^trznica/$', 'trznica.views.trznica_main'),
     (r'^aktivacija/$', 'activateaccount.views.activate_acc'),
-    (r'^logout/$', 'prva.views.user_logout'),
-)
+    #(r'^logout/$', 'prva.views.user_logout'),
+    (r'^logout/$', 'authUcilnica.views.user_logout'),
+
+    (r'^authUcilnica/$', 'authUcilnica.views.user_login'),
+    (r'^firstFromUcilnica/$','firstFromUcilnica.views.firstFrom_main')
+#TODO handle user without vpisna_st
+    )

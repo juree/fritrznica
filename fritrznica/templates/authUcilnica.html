@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 {% block content %}
 <head>
-    <title>Register</title>
+    <title>Log in</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <style>
         body{
@@ -13,8 +13,9 @@
     </style>
 </head>
 <body>
+Login ucilnica<br>
 {{ state }}
-<form action="/registracija/" method="post">
+<form action="/authUcilnica/" method="post">
     {% csrf_token %}
     {% if next %}
         <input type="hidden" name="next" value="{{ next }}" />
@@ -23,12 +24,8 @@
     <input type="text" name="username" value="{{ username}}" /><br />
     password:
     <input type="password" name="password" value="" /><br />
-    first name:
-    <input type="text" name="firstname" value="" /><br />
-    last name:
-    <input type="text" name="lastname" value="" /><br />
 
-    <input type="submit" value="Register" />
+    <input type="submit" value="Log In" />
 </form>
 </body>
 {% endblock %}
