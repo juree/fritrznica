@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+{% extends "base.html" %}
+{% block content %}
 <head>
     <title>Success</title>
 </head>
@@ -13,4 +15,5 @@ Vpisna: {{ vpisna }}
     <input type="button" value="Log out" onClick="location.href='/logout'">
 </form>
 </body>
+{% endblock %}
 </html>
