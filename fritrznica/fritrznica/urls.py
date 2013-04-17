@@ -13,15 +13,15 @@ urlpatterns = patterns('',
 
                        url(r'^admin/', include(admin.site.urls)),
 
-                       (r'^prva/$', 'prva.views.user_login'),
-                       (r'^$', 'authUcilnica.views.redirect_to_login'),
-                       (r'^registracija/$', 'registracija.views.user_register'),
-                       (r'^trznica/$', 'trznica.views.trznica_main'),
-                       (r'^aktivacija/$', 'activateaccount.views.activate_acc'),
-                       #(r'^logout/$', 'prva.views.user_logout'),
-                       (r'^logout/$', 'authUcilnica.views.user_logout'),
-
+                       # (r'^prva/$', 'prva.views.user_login'),
+                       (r'^$', include('authUcilnica.urls')),
                        (r'^authUcilnica/$', 'authUcilnica.views.user_login'),
-                       (r'^firstFromUcilnica/$','firstFromUcilnica.views.firstFrom_main')
+                       (r'^logout/$', include('authUcilnica.urls')),
+                       (r'^firstFromUcilnica/$','firstFromUcilnica.views.firstFrom_main'),
+
+                       # (r'^registracija/$', 'registracija.views.user_register'),
+                       # (r'^trznica/$', 'trznica.views.trznica_main'),
+                       # (r'^aktivacija/$', 'activateaccount.views.activate_acc'),
+                       #(r'^logout/$', 'prva.views.user_logout'),
                        #TODO handle user without vpisna_st
 )
