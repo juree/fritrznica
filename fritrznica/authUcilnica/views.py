@@ -1,5 +1,4 @@
-##TODO: pass a username,vpisna_st,firstname...to firstpage
-
+##TODO if user in database, don't connect to ucilnica
 from ucilnica import ucilnica_login
 from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login
@@ -16,6 +15,7 @@ def redirect_to_login(request):
 
 def user_logout(request):
     logout(request)
+    request.session.flush()
     return HttpResponseRedirect("/authUcilnica/")
 
 
@@ -50,5 +50,5 @@ def user_login(request):
                 #state = "Your username and/or password were incorrect."
                 #state = "Login error"
                 #return HttpResponseRedirect("/firstFromUcilnica/")
-    return render_to_response('authUcilnica.html', RequestContext(request,{'state': state, 'username': username}))
+    return render_to_response('prijava.html', RequestContext(request,{'state': state, 'username': username}))
     state = ""

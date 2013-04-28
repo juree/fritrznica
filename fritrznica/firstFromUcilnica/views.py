@@ -7,11 +7,12 @@ from django.contrib.auth.models import User
 
 def firstFrom_main(request):
 
-    if request.user.is_authenticated():
+    if not request.user.is_active:
+        return HttpResponseRedirect('/authUcilnica/')
+    else:
         username = request.user
         vpisna = username.email
         ime = username.first_name
         priimek = username.last_name
         return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek}))
-    else:
-        return HttpResponseRedirect('/authUcilnica/')
+

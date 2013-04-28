@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+	<head>
+		<title>TITLE</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+	<div class="container">
+      <div class="masthead">
+      	{% block header %}
+        <img src="../static/LOGOtrznica.png">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav pull-right">
+                <li><a href="#">Ponudbe</a></li>
+                <li><a href="#">Zamenjaj</a></li>
+                <li><a href="#">Urnik</a></li>
+                <li><a href="/logout">Odjava</a></li>
+              </ul>
+            </div>
+          </div>
+        {% endblock %}</div><!-- /.navbar -->
+      <div class="hero-unit">
+      	    {% block content %}
+      	    {% endblock %}
+      </div>
+        <hr>
+      <div class="footer pull-right">
+      	{% block footer %}
+        <p>&copy; FriTrznica | Jure Prevc, Nejc Ilenič, Primož Karničnik</p>
+        {% endblock %}
+      </div>
+    </div> <!-- container -->
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
