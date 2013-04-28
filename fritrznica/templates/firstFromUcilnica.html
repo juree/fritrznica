@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-{% extends "base.html" %}
+{% extends "basic.html" %}
 {% block content %}
     <head>
         <title>Success</title>
     </head>
     <body>
-    <H1>Success</H1>
+    Parsing: http://urnik.fri.uni-lj.si/allocations?student={{ vpisna }}&timetable=156
+    <h2>Success</h2>
     Ime: {{ ime }}<br>
     Priimek: {{ priimek }}<br>
     username: {{ username }}<br>
-    Vpisna: {{ vpisna }}
-    <form action="/firstFromUcilnica/" method="get">
-        <input type="button" value="Log out" onClick="location.href='/logout'">
-    </form>
+    Vpisna: {{ vpisna }}<br>
     </body>
 {% endblock %}
 </html>

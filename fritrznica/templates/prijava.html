@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<meta charset="utf-8" xmlns="http://www.w3.org/1999/html">
+<html>
+<head>
+		<title>TITLE</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<style type="text/css">
+      body {
+        padding-top: 90px;
+        padding-bottom: 40px;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+      #loading {
+          position: absolute;
+          background-color: #000000;
+          opacity: 0.8;
+          padding: 1em;
+          margin-left: auto;
+          margin-right: auto;
+          display: none;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+      <div class="row-fluid">
+      	<div class="span2">
+      		<!-- empty -->
+      	</div>
+        <div class="span4">
+      <form class="form-signin" action="/authUcilnica/" method="post">
+      	<p></p>
+        <h4 class="form-signin-heading">Prijava</h4>
+          {% csrf_token %}
+        Uporabniško ime <input type="text" class="input-block-level" name="username" placeholder="Uporabniško ime" value="{{ username}}">
+        Geslo <input type="password" class="input-block-level" name="password" placeholder="Geslo">
+        <button id="login" class="btn btn-large btn-primary" data-loading-text="Nalagam..." type="submit" value="Log In">Prijava</button>
+      </form>
+
+        </div>
+        <div class="span3">
+          <h4>Navodila za prijavo </h4>
+          <p>Prijavite se z enakimi podatki kot na spletno učilnico FRI.</p>
+          <p>username@student.uni-lj.si oz. username@fri1.uni-lj.si in vaše geslo.</p>
+       </div>
+        <div class="span3">
+        	<!-- empty -->
+      	</div>
+      </div>
+      <hr>
+      <div class="footer pull-right">
+        <p>&copy; FriTrznica | Jure Prevc, Nejc Ilenič, Primož Karničnik</p>
+      </div>
+
+    </div> <!-- /container -->
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            $('#login')
+                    .click(function () {
+                        var btn = $(this)
+                        btn.button('reset')
+                        btn.button('loading')
+                    });
+        </script>
+
+</body>
+</html>
