@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="trznica">
+<script src="../static/lib/angular.js"></script>
+<script src="../static/angular/controllers.js"></script>
+<script src="../static/angular/app.js"></script>
+<script src="../static/angular/services.js"></script>
+<script src="../static/lib/angular-resource.js"></script>
 {% extends "basic.html" %}
 {% block content %}
     <head>
-        <title>Success</title>
+        <title>FriTržnica</title>
     </head>
-    <body>
-    Parsing: http://urnik.fri.uni-lj.si/allocations?student={{ vpisna }}&timetable=156
-    <h2>Success</h2>
-    Ime: {{ ime }}<br>
-    Priimek: {{ priimek }}<br>
-    username: {{ username }}<br>
-    Vpisna: {{ vpisna }}<br>
+    <body ng-controller="OffersCtrl">
+    Išči: <input ng-model="query">
+    <hr c>
+    <ul class="alloffers">
+        <li ng-repeat="offer in offers.objects | filter:query">
+            {% verbatim %} {{offer.predmet}} {% endverbatim %}
+        </li>
+    </ul>
     </body>
+    <div ng-view></div>
 {% endblock %}
 </html>
