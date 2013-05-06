@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html ng-app="trznica">
-<script src="../static/lib/angular.js"></script>
-<script src="../static/angular/controllers.js"></script>
-<script src="../static/angular/app.js"></script>
-<script src="../static/angular/services.js"></script>
-<script src="../static/lib/angular-resource.js"></script>
 {% extends "basic.html" %}
+{% block attributes %}
+    ng-app="trznica"
+{% endblock %}
+{% block scrpipts %}
+    <script src="../static/lib/angular.js"></script>
+    <script src="../static/angular/controllers.js"></script>
+    <script src="../static/angular/app.js"></script>
+    <script src="../static/angular/services.js"></script>
+    <script src="../static/lib/angular-resource.js"></script>
+{% endblock %}
 {% block content %}
     <head>
         <title>FriTržnica</title>
@@ -21,4 +24,3 @@
     </body>
     <div ng-view></div>
 {% endblock %}
-</html>
