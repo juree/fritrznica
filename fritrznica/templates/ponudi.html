@@ -1,0 +1,23 @@
+{% extends "basic.html" %}
+{% block attributes %}
+    ng-app="trznica"
+{% endblock %}
+{% block scrpipts %}
+    <script src="../static/lib/angular.js"></script>
+    <script src="../static/angular/controllers.js"></script>
+    <script src="../static/angular/app.js"></script>
+{% endblock %}
+{% block content %}
+    <head>
+        <title>FriTržnica - ponudi</title>
+    </head>
+    <body ng-controller="PonudiCtrl">
+    <hr c>
+    <ul class="youroffers">
+        <li ng-repeat="offer in offers.objects">
+            {% verbatim %} {{offer.predmet}} {% endverbatim %}
+        </li>
+    </ul>
+    </body>
+    <div ng-view></div>
+{% endblock %}

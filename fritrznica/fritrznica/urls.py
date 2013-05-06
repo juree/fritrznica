@@ -25,6 +25,7 @@ urlpatterns = patterns('',
                         {'next_page': '/authUcilnica/'}),
                        (r'^firstFromUcilnica/$','firstFromUcilnica.views.firstFrom_main'),
                        (r'^api/',include(v1_api.urls)),
+                       (r'^zamenjaj', 'parseUrnik.views.show_parsed_data'),
 
                        # (r'^registracija/$', 'registracija.views.user_register'),
                        # (r'^trznica/$', 'trznica.views.trznica_main'),
