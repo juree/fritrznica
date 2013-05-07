@@ -1,8 +1,19 @@
-<!DOCTYPE html>
-<meta charset="utf-8" xmlns="http://www.w3.org/1999/html">
-<html>
+{% extends "basic.html" %}
+{% block scrpipts %}
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#login')
+                .click(function () {
+                    var btn = $(this)
+                    btn.button('reset')
+                    btn.button('loading')
+                });
+    </script>
+{% endblock %}
+{% block head%}
 <head>
-		<title>TITLE</title>
+		<title>FriTržnica - Prijava</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<style type="text/css">
@@ -47,7 +58,10 @@
 
     </style>
 </head>
-<body>
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block content%}
     <div class="container">
       <div class="row-fluid">
       	<div class="span2">
@@ -74,21 +88,5 @@
       	</div>
       </div>
       <hr>
-      <div class="footer pull-right">
-        <p>&copy; FriTrznica | Jure Prevc, Nejc Ilenič, Primož Karničnik</p>
-      </div>
-
     </div> <!-- /container -->
-		<script src="http://code.jquery.com/jquery.js"></script>
-		<script src="../static/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            $('#login')
-                    .click(function () {
-                        var btn = $(this)
-                        btn.button('reset')
-                        btn.button('loading')
-                    });
-        </script>
-
-</body>
-</html>
+{% endblock %}
