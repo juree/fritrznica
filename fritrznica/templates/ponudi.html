@@ -6,18 +6,15 @@
     <script src="../static/lib/angular.js"></script>
     <script src="../static/angular/controllers.js"></script>
     <script src="../static/angular/app.js"></script>
-    <script src="../static/angular/services.js"></script>
-    <script src="../static/lib/angular-resource.js"></script>
 {% endblock %}
 {% block content %}
     <head>
-        <title>FriTržnica</title>
+        <title>FriTržnica - ponudi</title>
     </head>
-    <body ng-controller="OffersCtrl">
-    Išči: <input ng-model="query">
+    <body ng-controller="PonudiCtrl">
     <hr c>
-    <ul class="alloffers">
-        <li ng-repeat="offer in offers.objects | filter:query">
+    <ul class="youroffers">
+        <li ng-repeat="offer in offers.objects">
             {% verbatim %} {{offer.predmet}} {% endverbatim %}
         </li>
     </ul>

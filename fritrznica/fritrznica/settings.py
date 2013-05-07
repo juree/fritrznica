@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'authUcilnica',
     'firstFromUcilnica',
     'prva',
+    'parseUrnik',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

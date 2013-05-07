@@ -1,27 +1,34 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	</head>
+<html {% block attributes %}{% endblock %}>
+    {% block head %}
+        <meta charset="utf-8">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        </head>
+    {% endblock %}
+    {% block scrpipts %}
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    {% endblock %}
 	<body>
 	<div class="container">
       <div class="masthead">
+          <img src="../static/LOGOtrznica.png">
       	{% block header %}
-        <img src="../static/LOGOtrznica.png">
         <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav pull-right">
-                <li><a href="#">Ponudbe</a></li>
-                <li><a href="#">Zamenjaj</a></li>
+                <li><a href="/firstFromUcilnica">Ponudbe</a></li>
+                <li><a href="/zamenjaj">Zamenjaj</a></li>
                 <li><a href="#">Urnik</a></li>
                 <li><a href="/logout">Odjava</a></li>
               </ul>
             </div>
           </div>
-        {% endblock %}</div><!-- /.navbar -->
+        </div><!-- /.navbar -->
+        {% endblock %}
       <div class="hero-unit">
       	    {% block content %}
       	    {% endblock %}
@@ -32,8 +39,7 @@
         <p>&copy; FriTrznica | Jure Prevc, Nejc Ilenič, Primož Karničnik</p>
         {% endblock %}
       </div>
+      </div><!-- masthead -->
     </div> <!-- container -->
-		<script src="http://code.jquery.com/jquery.js"></script>
-		<script src="../static/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

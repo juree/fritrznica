@@ -6,8 +6,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from registerUcilnica.views import user_register
-from firstFromUcilnica.views import firstFrom_main
-from django.core.urlresolvers import reverse
+
 import re
 
 def redirect_to_login(request):
