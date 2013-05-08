@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
-from registerUcilnica.views import user_register
+#from authUcilnica.views import user_register
+from django.contrib.auth.models import User
 
 import re
 
@@ -51,3 +52,19 @@ def user_login(request):
                 #return HttpResponseRedirect("/firstFromUcilnica/")
     return render_to_response('prijava.html', RequestContext(request,{'state': state, 'username': username}))
     state = ""
+
+def user_register(username, password, firstname, lastname,vpisna_st):
+
+    user = User.objects.create_user(username,vpisna_st,password)
+    user.first_name = firstname
+    user.last_name = lastname
+    user.save()
+
+def server_error(request, template_name='500.html'):
+    return render_to_response(template_name,
+                              context_instance = RequestContext(request)
+    )
+def not_found(request, template_name='404.html'):
+    return render_to_response(template_name,
+                              context_instance = RequestContext(request)
+    )
