@@ -1,15 +1,9 @@
 {% extends "basic.html" %}
 {% block scrpipts %}
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../static/jquery.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $('#login')
-                .click(function () {
-                    var btn = $(this)
-                    btn.button('reset')
-                    btn.button('loading')
-                });
-    </script>
+    <script src="../static/spin.js"></script>
+
 {% endblock %}
 {% block head%}
 <head>
@@ -46,37 +40,33 @@
         margin-bottom: 15px;
         padding: 7px 9px;
       }
-      #loading {
-          position: absolute;
-          background-color: #000000;
-          opacity: 0.8;
-          padding: 1em;
-          margin-left: auto;
-          margin-right: auto;
-          display: none;
-      }
-
     </style>
 </head>
 {% endblock %}
 {% block header %}
 {% endblock %}
 {% block content%}
+
     <div class="container">
       <div class="row-fluid">
       	<div class="span2">
       		<!-- empty -->
       	</div>
-        <div class="span4">
-      <form class="form-signin" action="/authUcilnica/" method="post">
+        <div id="forma" class="span4">
+      <form id="theForm1" class="form-signin" action="#" method="post">
       	<p></p>
         <h4 class="form-signin-heading">Prijava</h4>
           {% csrf_token %}
-        Uporabniško ime <input type="text" class="input-block-level" name="username" placeholder="Uporabniško ime" value="{{ username}}">
-        Geslo <input type="password" class="input-block-level" name="password" placeholder="Geslo">
-        <button id="login" class="btn btn-large btn-primary" data-loading-text="Nalagam..." type="submit" value="Log In">Prijava</button>
+         <div id ="upime">
+            Uporabniško ime <input type="text" class="input-block-level" name="username" placeholder="Uporabniško ime" value="{{ username}}">
+         </div>
+          <div id="spin">
+          </div>
+         <div id ="pass">
+            Geslo <input type="password" class="input-block-level" name="password" placeholder="Geslo">
+         </div>
+        <button id="theForm" class="btn btn-large btn-primary" data-loading-text="Nalagam..." type="submit" value="Log In" onClick=spin_start()>Prijava</button>
       </form>
-
         </div>
         <div class="span3">
           <h4>Navodila za prijavo </h4>
@@ -87,6 +77,34 @@
         	<!-- empty -->
       	</div>
       </div>
-      <hr>
-    </div> <!-- /container -->
+        <script type="text/javascript">
+            var opts = {
+                lines: 18, // The number of lines to draw
+                length: 10, // The length of each line
+                width: 3, // The line thickness
+                radius: 10, // The radius of the inner circle
+                rotate: 0, // The rotation offset
+                color: '#000', // #rgb or #rrggbb
+                speed: 0.7, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: 'auto', // Top position relative to parent in px
+                left: 'auto' // Left position relative to parent in px
+            };
+            var target = document.getElementById('spin');
+            var spinner = new Spinner(opts).spin(target);
+            spin_stop();
+            function spin_stop()
+            {
+                spinner.stop();
+            }
+            function spin_start()
+            {
+                spinner.spin(target);
+                upime.style.visibility='hidden';
+                pass.style.visibility='hidden';
+            }
+        </script>
 {% endblock %}
