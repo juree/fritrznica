@@ -28,7 +28,6 @@ urlpatterns = patterns('',
                        (r'^firstFromUcilnica/$', include('firstFromUcilnica.urls')),
                        (r'^profil/$','firstFromUcilnica.views.profil'),
                        (r'^api/',include(v1_api.urls)),
-                       (r'^zamenjaj', 'parseUrnik.views.zamenjaj_vaje' ),
 
                        # (r'^registracija/$', 'registracija.views.user_register'),
                        # (r'^trznica/$', 'trznica.views.trznica_main'),
