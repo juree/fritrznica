@@ -1,22 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Swaps(models.Model):
-    predmet = models.CharField(max_length=30)
-    termin1 = models.CharField(max_length=30)
-    termin2 = models.CharField(max_length=30)
-    #vpisna1 = models.CharField(max_length=8)
-    #vpisna2 = models.CharField(max_length=8)
+    #not sure
+    closed = models.NullBooleanField(default=True)
+
 
 class Offers(models.Model):
-    bidder = models.ForeignKey(User)
-    swaps = models.ForeignKey(Swaps)
-    #vpisna = models.CharField(max_length=8)
+    user = models.ForeignKey(User)
     termin = models.CharField(max_length=30)
-    predmet = models.CharField(max_length=30)
     ucilnica = models.CharField(max_length=30)
+    predmet = models.CharField(max_length=30)
+    swap = models.ForeignKey(Swaps)
+
 
 class Bidders(models.Model):
     user = models.OneToOneField(User)
     vpisna = models.CharField(max_length=8)
     urnikVersion = models.CharField(max_length=9)
+
+class Parsedoffers(models.Model):
+    user = models.ForeignKey(User)
+    termin = models.CharField(max_length=30)
+    ucilnica = models.CharField(max_length=30)
+    predmet = models.CharField(max_length=30)

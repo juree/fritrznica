@@ -32,7 +32,7 @@ def user_login(request):
             if user is not None:
                 #user already in database, don't connect to ucilnica
                 #compare timetable versions
-                if user.Bidders.urnikVersion != urnikVersion:
+                if user.bidders.urnikVersion != urnikVersion:
                     vaje = parseUrnik(user.Bidders.vpisna, urnikVersion)
                     #TODO update database
                 login(request, user)
@@ -54,7 +54,7 @@ def user_login(request):
                 #register user
                 user_register(username, password, firstname, lastname, vpisna_st, urnikVersion)
                 user = authenticate(username=username, password=password)
-                vaje = parseUrnik(user.Bidders.vpisna, urnikVersion)
+                vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
                 #TODO update database
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
@@ -70,8 +70,8 @@ def user_register(username, password, firstname, lastname, vpisna_st, urnik_vers
         user = User.objects.create_user(username, None, password)
         user.first_name = firstname
         user.last_name = lastname
-        user.Bidders.vpisna = vpisna_st
-        user.Bidders.urnikVersion = urnik_version
+        user.bidders.vpisna = vpisna_st
+        user.bidders.urnikVersion = urnik_version
         user.save()
 
 
