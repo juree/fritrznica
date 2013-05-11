@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from ucilnica import ucilnica_login
 from parser import parseUrnik, parseVersion
+from data.models import Parsedoffers
 
 
 def redirect_to_login(request):
@@ -34,7 +35,10 @@ def user_login(request):
                 #compare timetable versions
                 if user.bidders.urnikVersion != urnikVersion:
                     vaje = parseUrnik(user.Bidders.vpisna, urnikVersion)
-                    #TODO update database
+                    #update database(parsed offers)
+                    for ent in vaje:
+                        po = Parsedoffers(user=User, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"])
+                        po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
             #user not in database, connect to ucilnica and get user_info
@@ -55,7 +59,10 @@ def user_login(request):
                 user_register(username, password, firstname, lastname, vpisna_st, urnikVersion)
                 user = authenticate(username=username, password=password)
                 vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
-                #TODO update database
+                #update database(parsed offers)
+                for ent in vaje:
+                    po = Parsedoffers(user=User, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"])
+                    po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
             else:
