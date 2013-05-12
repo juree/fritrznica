@@ -1,6 +1,7 @@
 #from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from firstFromUcilnica.resources import OffersResource
+from offer.resources import ParsedoffersResource
 from tastypie.api import Api
 from django.conf.urls import *
 
@@ -8,6 +9,7 @@ admin.autodiscover()
 offers_resource = OffersResource()
 v1_api = Api(api_name='v1')
 v1_api.register(OffersResource())
+v1_api.register(ParsedoffersResource())
 
 urlpatterns = patterns('',
                        # Examples:
@@ -27,8 +29,8 @@ urlpatterns = patterns('',
                         {'next_page': '/authUcilnica/'}),
                        (r'^firstFromUcilnica/$', include('firstFromUcilnica.urls')),
                        (r'^profil/$','firstFromUcilnica.views.profil'),
+                       (r'^offer/$','offer.views.offer'),
                        (r'^api/',include(v1_api.urls)),
-                       (r'^zamenjaj', 'parseUrnik.views.zamenjaj_vaje' ),
 
                        # (r'^registracija/$', 'registracija.views.user_register'),
                        # (r'^trznica/$', 'trznica.views.trznica_main'),
