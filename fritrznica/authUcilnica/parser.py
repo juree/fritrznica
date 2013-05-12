@@ -1,4 +1,3 @@
-#TODO parse version
 from bs4 import BeautifulSoup
 import urllib2
 import re
@@ -22,3 +21,11 @@ def parseUrnik(vpisna, version):
         parsed.append(ent);
 
     return parsed
+
+
+def parseVersion():
+    url = "http://urnik.fri.uni-lj.si"
+    page = urllib2.urlopen(url)
+    soup = BeautifulSoup(page.read())
+
+    return soup.find("input", {"name" : "timetable"})["value"]

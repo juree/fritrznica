@@ -18,7 +18,7 @@
     <hr c>
     <ul class="alloffers">
         <li ng-repeat="offer in offers.objects | filter:query">
-            {% verbatim %} {{offer.predmet}} {% endverbatim %}
+            {% verbatim %} {{offer.predmet}} {{offer.termin}} {% endverbatim %}
         </li>
     </ul>
     </body>
