@@ -6,3 +6,6 @@ class OffersResource(ModelResource):
         queryset = Offers.objects.all()
         resource_name = 'offers'
         allowed_methods = ['get']
+        filtering = {
+            "version" : 'exact',
+        }

@@ -34,10 +34,12 @@ def user_login(request):
                 #user already in database, don't connect to ucilnica
                 #compare timetable versions
                 if user.bidders.urnikVersion != urnikVersion:
-                    vaje = parseUrnik(user.Bidders.vpisna, urnikVersion)
-                    #update database(parsed offers)
+                    vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
+                    #update database(parsed offers and user's urnik version)
+                    user.bidders.urnikVersion = urnikVersion
+                    user.bidders.save()
                     for ent in vaje:
-                        po = Parsedoffers(user=User, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"])
+                        po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion)
                         po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
@@ -52,7 +54,6 @@ def user_login(request):
                 lastname = name[len(name) - 1]
                 vpisna_st = user_info['vpisna_st']
                 if vpisna_st is None:
-                    #can't test this!
                     state = "Zal se nimas vpisne stevilke."
                     return render_to_response('prijava.html', RequestContext(request, {'state': state, 'username': username}))
                 #register user
@@ -61,7 +62,7 @@ def user_login(request):
                 vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
                 #update database(parsed offers)
                 for ent in vaje:
-                    po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"])
+                    po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion)
                     po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
