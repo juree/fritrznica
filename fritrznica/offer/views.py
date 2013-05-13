@@ -2,7 +2,10 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+<<<<<<< HEAD
 
+=======
+>>>>>>> Nothing special.
 
 def offer(request):
     if not request.user.is_active:

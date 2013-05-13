@@ -16,14 +16,17 @@
         <title>FriTržnica - ponudi</title>
     </head>
     <body ng-controller="PonudiCtrl">
-    <hr c>
+    <!--<hr c>-->
     <table class="table" border="0">
         <tr ng-repeat="offer in parsedoffers.objects">
             <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
             <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
-            <td><button class="btn-primary pull-right" type="button">Ponudi</button></td>
+            <td>
+                <a href="?{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Ponudi</button></a>
+            </td>
         </tr>
     </table>
+    <p>state:{{ id }}</p>
     <!--<ul>
         <p ng-repeat="offer in parsedoffers.objects">
             {% verbatim %} {{offer.predmet}} {{offer.termin}} {{ offer.id }} {% endverbatim %}
