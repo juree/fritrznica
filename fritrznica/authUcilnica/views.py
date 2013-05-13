@@ -7,7 +7,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from ucilnica import ucilnica_login
 from parser import parseUrnik, parseVersion
-from data.models import Parsedoffers
+from data.models import Parsedoffers, Bidders
 
 
 def redirect_to_login(request):
@@ -61,7 +61,7 @@ def user_login(request):
                 vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
                 #update database(parsed offers)
                 for ent in vaje:
-                    po = Parsedoffers(user=User, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"])
+                    po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"])
                     po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
@@ -74,12 +74,12 @@ def user_login(request):
 
 
 def user_register(username, password, firstname, lastname, vpisna_st, urnik_version):
-        user = User.objects.create_user(username, None, password)
-        user.first_name = firstname
-        user.last_name = lastname
-        user.bidders.vpisna = vpisna_st
-        user.bidders.urnikVersion = urnik_version
-        user.save()
+    user = User.objects.create_user(username, None, password)
+    user.first_name = firstname
+    user.last_name = lastname
+    user.save()
+    b = Bidders(user=user, vpisna=vpisna_st, urnikVersion=urnik_version)
+    b.save()
 
 
     #TODO check if 500 and 404 works.
