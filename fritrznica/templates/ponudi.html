@@ -15,11 +15,18 @@
     </head>
     <body ng-controller="PonudiCtrl">
     <hr c>
-    <ul class="youroffers">
-        <li ng-repeat="offer in parsedoffers.objects">
-            {% verbatim %} {{offer.predmet}} {{offer.termin}} {% endverbatim %}
-        </li>
-    </ul>
+    <table class="table" border="0">
+        <tr ng-repeat="offer in parsedoffers.objects">
+            <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
+            <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
+            <td><button class="btn-primary pull-right" type="button">Ponudi</button></td>
+        </tr>
+    </table>
+    <!--<ul>
+        <p ng-repeat="offer in parsedoffers.objects">
+            {% verbatim %} {{offer.predmet}} {{offer.termin}} {{ offer.id }} {% endverbatim %}
+        </p>
+    </ul>-->
     </body>
     <div ng-view></div>
 {% endblock %}
