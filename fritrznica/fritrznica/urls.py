@@ -30,7 +30,7 @@ urlpatterns = patterns('',
                        (r'^firstFromUcilnica/$', include('firstFromUcilnica.urls')),
                        (r'^profil/$','firstFromUcilnica.views.profil'),
                        (r'^offer/$','offer.views.offer'),
-                       (r'^offer/(?P<id>\d+)/$','offer.views.offerSwap'),
+                       (r'^offer/(?P<id>\d+)/$','offer.views.offer'),
                        (r'^api/',include(v1_api.urls)),
 
                        # (r'^registracija/$', 'registracija.views.user_register'),
