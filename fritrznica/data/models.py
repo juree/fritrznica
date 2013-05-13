@@ -12,6 +12,7 @@ class Offers(models.Model):
     termin = models.CharField(max_length=30)
     ucilnica = models.CharField(max_length=30)
     predmet = models.CharField(max_length=30)
+    version = models.CharField(max_length=9)
     swap = models.ForeignKey(Swaps)
 
 
@@ -25,3 +26,5 @@ class Parsedoffers(models.Model):
     termin = models.CharField(max_length=30)
     ucilnica = models.CharField(max_length=30)
     predmet = models.CharField(max_length=30)
+    offered = models.BooleanField(default=False)
+    version = models.CharField(max_length=9)

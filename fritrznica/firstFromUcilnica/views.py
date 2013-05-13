@@ -19,5 +19,5 @@ def firstFrom_main(request):
         vpisna = username.email
         ime = username.first_name
         priimek = username.last_name
-        return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek}))
+        return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request}))
 
