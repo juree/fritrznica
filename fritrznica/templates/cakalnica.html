@@ -1,0 +1,36 @@
+{% extends "basic.html" %}
+{% block attributes %}
+    ng-app="trznica"
+{% endblock %}
+{% block scrpipts %}
+    <script src="../static/lib/angular.js"></script>
+    <script src="../static/angular/controllers.js"></script>
+    <script src="../static/angular/app.js"></script>
+    <script src="../static/angular/services.js"></script>
+    <script src="../static/lib/angular-resource.js"></script>
+    <script type="text/javascript">var USER_ID = "{{ request.user.id }}";</script>
+    <script type="text/javascript">var VERSION = "{{ request.user.bidders.urnikVersion }}";</script>
+{% endblock %}
+{% block content %}
+    <head>
+        <title>FriTržnica - cakalnica</title>
+    </head>
+    <body ng-controller="PonujenoCtrl">
+    <!--<hr c>-->
+    <table class="table" border="0">
+        <tr ng-repeat="offer in parsedoffers.objects">
+            <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
+            <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
+            <td>
+                <a href="../offer/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Ponudi</button></a>
+            </td>
+        </tr>
+    </table>
+    <!--<ul>
+        <p ng-repeat="offer in parsedoffers.objects">
+            {% verbatim %} {{offer.predmet}} {{offer.termin}} {{ offer.id }} {% endverbatim %}
+        </p>
+    </ul>-->
+    </body>
+    <div ng-view></div>
+{% endblock %}
