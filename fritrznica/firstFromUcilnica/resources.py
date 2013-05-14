@@ -8,4 +8,6 @@ class OffersResource(ModelResource):
         allowed_methods = ['get']
         filtering = {
             "version" : 'exact',
+            "offered" : 'exact',
+            "closed" : 'exact',
         }

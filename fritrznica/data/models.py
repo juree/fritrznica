@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Swaps(models.Model):
-    #not sure
-    closed = models.NullBooleanField(default=True)
+    date = models.DateField()
+    closed = models.NullBooleanField(default=False)
 
 
 class Offers(models.Model):
@@ -14,6 +14,8 @@ class Offers(models.Model):
     predmet = models.CharField(max_length=30)
     version = models.CharField(max_length=9)
     swap = models.ForeignKey(Swaps)
+    offered = models.BooleanField(default=False)
+    closed = models.BooleanField(default=False)
 
 
 class Bidders(models.Model):
