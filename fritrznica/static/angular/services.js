@@ -1,7 +1,7 @@
 var app = angular.module('ipriServices', ['ngResource']);
 
 app.factory('Offer', function($resource){
-    return $resource('/api/v1/offers?version='+VERSION, {}, {
+    return $resource('/api/v1/offers?version='+VERSION+'&offered=true&closed=false', {}, {
         query: {method:'GET', isArray:false}
     });
 });
