@@ -5,3 +5,7 @@ function OffersCtrl($scope, Offer) {
 function PonudiCtrl($scope, Parsedoffer) {
     $scope.parsedoffers = Parsedoffer.query();
 }
+
+function PonujenoCtrl($scope, Offeredoffer) {
+    $scope.parsedoffers = Offeredoffer.query();
+}

@@ -17,11 +17,18 @@
     <body ng-controller="OffersCtrl">
     Išči: <input ng-model="query">
     <hr c>
-    <ul class="alloffers">
-        <li ng-repeat="offer in offers.objects | filter:query">
-            {% verbatim %} {{offer.predmet}} {{offer.termin}} {% endverbatim %}
-        </li>
-    </ul>
+            <table class="table table-striped">
+            </table>
+            <table class="table table-striped">
+                <tr ng-repeat="offer in offers.objects | filter:query">
+                    <td>
+                        {% verbatim %}{{offer.predmet}}{% endverbatim %}
+                    </td>
+                    <td>
+                        {% verbatim %}{{offer.termin}}{% endverbatim %}
+                    </td>
+                </tr>
+            </table>
     </body>
     <div ng-view></div>
 {% endblock %}
