@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from data.models import Parsedoffers, Offers
 
+def cakalnica(request):
+    return render_to_response('cakalnica.html', RequestContext(request, {'request': request}))
 
 def offer(request, id=-1):
     if not request.user.is_active:

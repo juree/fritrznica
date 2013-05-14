@@ -17,7 +17,6 @@ class Offers(models.Model):
     offered = models.BooleanField(default=False)
     closed = models.BooleanField(default=False)
 
-
 class Bidders(models.Model):
     user = models.OneToOneField(User)
     vpisna = models.CharField(max_length=8)
