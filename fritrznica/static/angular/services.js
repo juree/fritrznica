@@ -11,3 +11,9 @@ app.factory('Parsedoffer', function($resource){
         query: {method:'GET', isArray:false}
     });
 });
+
+app.factory('Offeredoffer', function($resource){
+    return $resource('/api/v1/parsedoffers?user='+USER_ID+'&version='+VERSION+'&offered=true', {}, {
+        query: {method:'GET', isArray:false}
+    });
+});
