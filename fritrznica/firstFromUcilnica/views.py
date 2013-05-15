@@ -48,6 +48,10 @@ def predlagaj_zamenjavo(request, id):
             if not Swaps.objects.filter(offerid=id, parsedofferid=po.id).exists():
                 s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid=id, parsedofferid=po.id)
                 s.save()
+                o.swap_id=s.id
+                po.swap_id=s.id
+                o.save()
+                po.save()
                 return HttpResponseRedirect('/firstFromUcilnica/')
             else:
                 #TODO menjava ze obstaja

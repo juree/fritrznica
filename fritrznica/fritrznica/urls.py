@@ -2,14 +2,16 @@
 from django.contrib import admin
 from firstFromUcilnica.resources import OffersResource
 from offer.resources import ParsedoffersResource
+from cakalnica.resources import SwapsResource
 from tastypie.api import Api
 from django.conf.urls import *
 
 admin.autodiscover()
-offers_resource = OffersResource()
+#offers_resource = OffersResource()
 v1_api = Api(api_name='v1')
 v1_api.register(OffersResource())
 v1_api.register(ParsedoffersResource())
+v1_api.register(SwapsResource())
 
 urlpatterns = patterns('',
                        # Examples:

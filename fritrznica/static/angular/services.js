@@ -17,3 +17,9 @@ app.factory('Offeredoffer', function($resource){
         query: {method:'GET', isArray:false}
     });
 });
+
+app.factory('Swap', function($resource){
+    return $resource('/api/v1/swaps', {}, {
+        query: {method:'GET', isArray:false}
+    });
+});

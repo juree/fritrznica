@@ -18,6 +18,7 @@ class Offers(models.Model):
     version = models.CharField(max_length=9)
     offered = models.BooleanField(default=False)
     closed = models.BooleanField(default=False)
+    swap_id=models.IntegerField()
 
 class Bidders(models.Model):
     user = models.OneToOneField(User)
@@ -32,3 +33,4 @@ class Parsedoffers(models.Model):
     offered = models.BooleanField(default=False)
     version = models.CharField(max_length=9)
     closed = models.BooleanField(default=False)
+    swap_id=models.IntegerField()

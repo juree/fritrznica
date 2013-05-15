@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from data.models import Parsedoffers, Bidders
+from data.models import Parsedoffers
 from tastypie.constants import ALL_WITH_RELATIONS, ALL
 from tastypie import fields
 from django.contrib.auth.models import User

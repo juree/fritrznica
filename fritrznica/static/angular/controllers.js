@@ -9,3 +9,7 @@ function PonudiCtrl($scope, Parsedoffer) {
 function PonujenoCtrl($scope, Offeredoffer) {
     $scope.parsedoffers = Offeredoffer.query();
 }
+
+function SwapsCtrl($scope, Swap) {
+    $scope.swaps = Swap.query();
+}
