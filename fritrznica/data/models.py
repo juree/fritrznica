@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Swaps(models.Model):
-    date = models.DateField()
-    closed = models.NullBooleanField(default=False)
+    date = models.DateTimeField()
+    closed = models.BooleanField(default=False)
+    valid = models.BooleanField(default=False)
 
 
 class Offers(models.Model):
