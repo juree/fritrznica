@@ -31,3 +31,4 @@ class Parsedoffers(models.Model):
     predmet = models.CharField(max_length=30)
     offered = models.BooleanField(default=False)
     version = models.CharField(max_length=9)
+    closed = models.BooleanField(default=False)
