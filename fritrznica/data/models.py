@@ -1,15 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-class Swaps(models.Model):
-    date = models.DateTimeField()
-    closed = models.BooleanField(default=False)
-    valid = models.BooleanField(default=True)
-    offerid = models.IntegerField() #ponudba z firstfromucilnica
-    parsedofferid = models.IntegerField() #moje vaje
-
-
 class Offers(models.Model):
     user = models.ForeignKey(User)
     termin = models.CharField(max_length=30)
@@ -18,7 +9,7 @@ class Offers(models.Model):
     version = models.CharField(max_length=9)
     offered = models.BooleanField(default=False)
     closed = models.BooleanField(default=False)
-    swap_id=models.IntegerField()
+    #swap_id=models.IntegerField()
 
 class Bidders(models.Model):
     user = models.OneToOneField(User)
@@ -33,4 +24,11 @@ class Parsedoffers(models.Model):
     offered = models.BooleanField(default=False)
     version = models.CharField(max_length=9)
     closed = models.BooleanField(default=False)
-    swap_id=models.IntegerField()
+    #swap_id=models.IntegerField()
+
+class Swaps(models.Model):
+    date = models.DateTimeField()
+    closed = models.BooleanField(default=False)
+    valid = models.BooleanField(default=True)
+    offerid = models.ForeignKey(Offers) #ponudba z firstfromucilnica
+    parsedofferid = models.ForeignKey(Parsedoffers) #moje vaje

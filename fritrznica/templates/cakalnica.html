@@ -15,22 +15,24 @@
     <head>
         <title>FriTržnica - cakalnica</title>
     </head>
-    <body ng-controller="PonujenoCtrl">
+    <body>
     <!--<hr c>-->
-    <table class="table" border="0">
+    <table ng-controller="PonujenoCtrl" class="table" border="0">
         <tr ng-repeat="offer in parsedoffers.objects">
             <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
             <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
             <td>
-                <a href="../offer/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Ponudi</button></a>
+                <a href="../brisi/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Brisi</button></a>
             </td>
+            <script type="text/javascript">var PARSED_ID = "{{offer.id}}";</script>
+            <td ng-controller="SwapsCtrl">
+                <tr ng-repeat="swap in swaps.objects">
+                    <td class="span6">{% verbatim %} {{swap.offerid.predmet}} {% endverbatim %}</td>
+                   <td>{% verbatim %} {{swap.offerid.termin}} {% endverbatim %}</td>
+                </tr>
+             </td>
         </tr>
     </table>
-    <!--<ul>
-        <p ng-repeat="offer in parsedoffers.objects">
-            {% verbatim %} {{offer.predmet}} {{offer.termin}} {{ offer.id }} {% endverbatim %}
-        </p>
-    </ul>-->
     </body>
     <div ng-view></div>
 {% endblock %}

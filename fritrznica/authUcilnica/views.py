@@ -39,7 +39,7 @@ def user_login(request):
                     user.bidders.urnikVersion = urnikVersion
                     user.bidders.save()
                     for ent in vaje:
-                        po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion, swap_id=-1)
+                        po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion)
                         po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
@@ -62,7 +62,7 @@ def user_login(request):
                 vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
                 #update database(parsed offers)
                 for ent in vaje:
-                    po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion, swap_id=-1)
+                    po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion)
                     po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")

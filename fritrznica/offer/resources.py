@@ -25,4 +25,5 @@ class ParsedoffersResource(ModelResource):
             "user" : ALL_WITH_RELATIONS,
             "offered" : 'exact',
             "version" : 'exact',
+            'closed' : 'exact'
         }

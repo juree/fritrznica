@@ -28,9 +28,12 @@ def brisi_ponudbo(request, id):
     else:
         #funkcija bo vezana na drug url (/brisi) in id bo vedno podan
         o = Offers.objects.get(id=id)
-        if o.swap_id > 0:
-            s = Swaps.objects.get(id=o.swap_id)
-            s.valid = False
+        #delete if in swaps
+        if Swaps.objects.filter(offerid=id).exists():
+            swaps=Swaps.objects.filter(offerid=id)
+            for entry in swaps:
+                entry.valid=False
+                entry.save()
         o.offered = False
         o.save()
         po = Parsedoffers.objects.get(id=id)
@@ -45,13 +48,9 @@ def predlagaj_zamenjavo(request, id):
         o=Offers.objects.get(id=id)
         po=Parsedoffers.objects.get(user_id=request.user.id, predmet=o.predmet, closed=False)
         if po is not None:
-            if not Swaps.objects.filter(offerid=id, parsedofferid=po.id).exists():
-                s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid=id, parsedofferid=po.id)
+            if not Swaps.objects.filter(offerid_id=id, parsedofferid_id=po.id).exists():
+                s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid_id=id, parsedofferid_id=po.id)
                 s.save()
-                o.swap_id=s.id
-                po.swap_id=s.id
-                o.save()
-                po.save()
                 return HttpResponseRedirect('/firstFromUcilnica/')
             else:
                 #TODO menjava ze obstaja
