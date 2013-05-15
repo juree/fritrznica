@@ -42,22 +42,8 @@ def predlagaj_zamenjavo(request, myid, yourid):
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
-        #yourid will always be in Offers table
-        #check for myid - if not in Offers
-        #put it in Offers and set offered = False
-        s=Swaps(date=datetime.datetime.now(), closed=False, valid=True)
+        s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid=yourid, parsedofferid=myid)
         s.save()
-        if not Offers.objects.filter(id=myid).exists():
-            po = Parsedoffers.objects.get(id=myid)
-            of1=Offers(id=myid, user_id=po.user_id, termin=po.termin, ucilnica=po.ucilnica, predmet=po.predmet, version=po.version, swap_id=-1, offered=False, closed=False)
-            of1.swap_id=s.id
-        else:
-            of1 = Offers.objects.get(id=myid)
-            of1.swap_id=s.id
-        of1.save()
-        of2 = Offers.objects.get(id=yourid)
-        of2.swap=s
-        of2.save()
         return HttpResponseRedirect('/firstFromUcilnica/')
 
 

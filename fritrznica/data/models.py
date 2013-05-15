@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 class Swaps(models.Model):
     date = models.DateTimeField()
     closed = models.BooleanField(default=False)
-    valid = models.BooleanField(default=False)
+    valid = models.BooleanField(default=True)
+    offerid = models.IntegerField() #ponudba z firstfromucilnica
+    parsedofferid = models.IntegerField() #moje vaje
 
 
 class Offers(models.Model):
@@ -14,7 +16,6 @@ class Offers(models.Model):
     ucilnica = models.CharField(max_length=30)
     predmet = models.CharField(max_length=30)
     version = models.CharField(max_length=9)
-    swap = models.ForeignKey(Swaps)
     offered = models.BooleanField(default=False)
     closed = models.BooleanField(default=False)
 
