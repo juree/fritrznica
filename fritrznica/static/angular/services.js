@@ -19,7 +19,7 @@ app.factory('Offeredoffer', function($resource){
 });
 
 app.factory('Swap', function($resource){
-    return $resource('/api/v1/swaps?parsedofferid='+PARSED_ID, {}, {
+    return $resource('/api/v1/swaps', {}, {
         query: {method:'GET', isArray:false}
     });
 });

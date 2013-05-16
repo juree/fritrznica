@@ -22,15 +22,11 @@
             <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
             <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
             <td>
-                <a href="../brisi/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Brisi</button></a>
+                <a href="../brisi/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Zbrisi</button></a>
             </td>
-            <script type="text/javascript">var PARSED_ID = "{{offer.id}}";</script>
-            <td ng-controller="SwapsCtrl">
-                <tr ng-repeat="swap in swaps.objects">
-                    <td class="span6">{% verbatim %} {{swap.offerid.predmet}} {% endverbatim %}</td>
-                   <td>{% verbatim %} {{swap.offerid.termin}} {% endverbatim %}</td>
-                </tr>
-             </td>
+            <td ng-repeat="swap in offer.swaps_set.all">
+                <li >{% verbatim %} {{swap.offerid.predmet}} {% endverbatim %}</li>
+            </td>
         </tr>
     </table>
     </body>
