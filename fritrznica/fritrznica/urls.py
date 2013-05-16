@@ -2,14 +2,16 @@
 from django.contrib import admin
 from firstFromUcilnica.resources import OffersResource
 from offer.resources import ParsedoffersResource
+from cakalnica.resources import SwapsResource
 from tastypie.api import Api
 from django.conf.urls import *
 
 admin.autodiscover()
-offers_resource = OffersResource()
+#offers_resource = OffersResource()
 v1_api = Api(api_name='v1')
 v1_api.register(OffersResource())
 v1_api.register(ParsedoffersResource())
+v1_api.register(SwapsResource())
 
 urlpatterns = patterns('',
                        # Examples:
@@ -32,7 +34,7 @@ urlpatterns = patterns('',
                        (r'^offer/$','offer.views.offer'),
                        (r'^offer/(?P<id>\d+)/$','offer.views.offer'),
                        (r'^brisi/(?P<id>\d+)/$','firstFromUcilnica.views.brisi_ponudbo'),
-                       (r'^tryoffer/(?P<myid>\d+)/(?P<yourid>\d+)/$','firstFromUcilnica.views.predlagaj_zamenjavo'),
+                       (r'^tryoffer/(?P<id>\d+)/$','firstFromUcilnica.views.predlagaj_zamenjavo'),
                        (r'^cakalnica/$','offer.views.cakalnica'),
                        (r'^api/',include(v1_api.urls)),
 

@@ -28,22 +28,40 @@ def brisi_ponudbo(request, id):
     else:
         #funkcija bo vezana na drug url (/brisi) in id bo vedno podan
         o = Offers.objects.get(id=id)
-        if o.swap_id > 0:
-            s = Swaps.objects.get(id=o.swap_id)
-            s.valid = False
+        po = Parsedoffers.objects.get(id=id)
+        #delete if in swaps
+        swaps=o.swaps_set.all()
+        if swaps.__len__() > 0:
+            for entry in swaps:
+                entry.valid=False
+                entry.save()
         o.offered = False
         o.save()
-        po = Parsedoffers.objects.get(id=id)
         po.offered = False
         po.save()
         return HttpResponseRedirect('/firstFromUcilnica/')
 
-def predlagaj_zamenjavo(request, myid, yourid):
+def predlagaj_zamenjavo(request, id):
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
-        s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid=yourid, parsedofferid=myid)
-        s.save()
-        return HttpResponseRedirect('/firstFromUcilnica/')
-
+        o=Offers.objects.get(id=id)
+        po=Parsedoffers.objects.get(user_id=request.user.id, predmet=o.predmet, closed=False)
+        if po is not None:
+            if not Swaps.objects.filter(offerid_id=id, parsedofferid_id=po.id).exists():
+                s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid_id=id, parsedofferid_id=po.id)
+                s.save()
+                return HttpResponseRedirect('/firstFromUcilnica/')
+            else:
+                if Swaps.objects.filter(offerid_id=id, parsedofferid_id=po.id, valid=False).exists():
+                    s=Swaps.objects.get(offerid_id=id, parsedofferid_id=po.id, valid=False)
+                    s.valid=True
+                    s.save()
+                    return HttpResponseRedirect('/firstFromUcilnica/')
+                else:
+                    #TODO menjava ze obstaja
+                    return HttpResponseRedirect('/firstFromUcilnica/')
+        else:
+            #TODO menjava ni mozna
+            return HttpResponseRedirect('/firstFromUcilnica/')
 
