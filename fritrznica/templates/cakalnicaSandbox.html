@@ -1,0 +1,85 @@
+{% extends "basic.html" %}
+{% block attributes %}
+    ng-app="trznica"
+{% endblock %}
+{% block scrpipts %}
+    <script src="../static/lib/angular.js"></script>
+    <script src="../static/angular/controllers.js"></script>
+    <script src="../static/angular/app.js"></script>
+    <script src="../static/angular/services.js"></script>
+    <script src="../static/lib/angular-resource.js"></script>
+    <script type="text/javascript">var USER_ID = "{{ request.user.id }}";</script>
+    <script type="text/javascript">var VERSION = "{{ request.user.bidders.urnikVersion }}";</script>
+{% endblock %}
+{% block content %}
+    <head>
+        <title>FriTržnica - cakalnica</title>
+    </head>
+    <body>
+    <!--<hr c>-->
+    <table class="table" border="0">
+        {% if termini|length != 0 %}
+            <thead>
+            <tr>
+                <td><b>Predmet</b></td>
+                <td><b>Trenutni termin</b></td>
+                <td></td>
+                <td><b>&nbsp&nbsp&nbsp&nbsp&nbspPonujeni termini</b></td>
+            </tr>
+            </thead>
+        {% endif %}
+        {% for element in termini %}
+        <tr>
+        {% for iter in element %}
+            <td>
+                {% if forloop.first %}
+                    {{ iter }} <!-- predmet -->
+                {% endif %}
+                {% if forloop.counter0 == 1 %}
+                   {{ iter }} <!-- termin -->
+                {% endif %}
+                {% if forloop.last %}
+
+                    {% for posamezen in iter %}
+
+                            <ul>
+                                <a href="#"><button class="btn-primary pull-right" type="button">Sprejmi</button></a>{{ posamezen }}
+                            </ul>
+
+                    {% endfor %}
+
+                {% endif %}
+            </td>
+        {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </table>
+    <hr>
+    <table class="table">
+    {% if sodelujem|length != 0 %}
+    <thead>
+    <tr>
+        <td><b>Predmet</b></td>
+        <td><b>Trenutni termin</b></td>
+        <td><b>Željen termin</b></td>
+    </tr>
+    </thead>
+    {% endif %}
+    <tbody>
+        {% for iter in sodelujem %}
+            <tr>
+
+                    {% for element in iter %}
+                        <td>
+                        {{ element }}
+                        </td>
+                    {% endfor %}
+
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </body>
+    <div ng-view></div>
+{% endblock %}

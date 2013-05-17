@@ -21,11 +21,9 @@
         <tr ng-repeat="offer in parsedoffers.objects">
             <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
             <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
+            <td>{% verbatim %} {{offer.id}} {% endverbatim %}</td>
             <td>
-                <a href="../brisi/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Zbrisi</button></a>
-            </td>
-            <td ng-repeat="swap in offer.swaps_set.all">
-                <li >{% verbatim %} {{swap.offerid.predmet}} {% endverbatim %}</li>
+               <a href="../brisi/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Zbrisi</button></a>
             </td>
         </tr>
     </table>

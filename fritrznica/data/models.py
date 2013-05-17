@@ -30,5 +30,5 @@ class Swaps(models.Model):
     date = models.DateTimeField()
     closed = models.BooleanField(default=False)
     valid = models.BooleanField(default=True)
-    offerid = models.ForeignKey(Offers) #ponudba z firstfromucilnica
-    parsedofferid = models.ForeignKey(Parsedoffers) #moje vaje
+    offerid = models.IntegerField(default=-1) #ponudba z firstfromucilnica
+    parsedofferid = models.IntegerField(default=-1) #moje vaje

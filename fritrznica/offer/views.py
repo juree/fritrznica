@@ -27,3 +27,4 @@ def offer(request, id=-1):
                 off1=Offers(id=id, user_id=off.user_id, termin=off.termin, ucilnica=off.ucilnica, predmet=off.predmet, version=off.version, offered=True, closed=False)
                 off1.save()
             return HttpResponseRedirect('/offer/')
+

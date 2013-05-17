@@ -35,7 +35,8 @@ urlpatterns = patterns('',
                        (r'^offer/(?P<id>\d+)/$','offer.views.offer'),
                        (r'^brisi/(?P<id>\d+)/$','firstFromUcilnica.views.brisi_ponudbo'),
                        (r'^tryoffer/(?P<id>\d+)/$','firstFromUcilnica.views.predlagaj_zamenjavo'),
-                       (r'^cakalnica/$','offer.views.cakalnica'),
+                       (r'^cakalnica/$','cakalnica.views.contribute'),
+
                        (r'^api/',include(v1_api.urls)),
 
                        # (r'^registracija/$', 'registracija.views.user_register'),
