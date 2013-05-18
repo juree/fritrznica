@@ -17,6 +17,7 @@
     </head>
     <body>
     <!--<hr c>-->
+    <h4>Kaj sem ponudil?</h4>
     <table class="table" border="0">
         {% if termini|length != 0 %}
             <thead>
@@ -56,6 +57,7 @@
 
     </table>
     <hr>
+    <h4>Kje sodelujem?</h4>
     <table class="table">
     {% if sodelujem|length != 0 %}
     <thead>
@@ -80,6 +82,17 @@
         {% endfor %}
     </tbody>
     </table>
+    <hr>
+    <h4>Kaj je sprejeto?</h4>
+    {% if sprejeto|length != 0 %}
+        <thead>
+        <tr>
+            <td><b>Predmet</b></td>
+            <td><b>Stari termin</b></td>
+            <td><b>Novi termin</b></td>
+        </tr>
+        </thead>
+    {% endif %}
     </body>
     <div ng-view></div>
 {% endblock %}

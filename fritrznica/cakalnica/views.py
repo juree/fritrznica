@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
-from data.models import Parsedoffers, Offers, Swaps
+from data.models import Parsedoffers, Offers, Swaps, Bidders
 
 
 def cakalnica(request):
@@ -56,7 +56,19 @@ def contribute(request): #its sux, but works :)
             tujtermin = Offers.objects.get(id=iter.offerid).termin
             writeoutlist.append([predmet,mojtermin,tujtermin])
         #end
-        return render_to_response('cakalnicaSandbox.html',RequestContext(request,{'request': request,'termini': list, 'sodelujem': writeoutlist}))
+        #tretji del
+        version = Bidders.objects.get(user_id = request.user.id)
+        zaprte = Parsedoffers.objects.filter(user_id=request.user.id, version = version, closed=True)
+        allout = []
+        for iter in zaprte:
+            listek = []
+            oid = Swaps.objects.filter(parsedofferid=iter.id).offerid
+            drug_termin = Offers.objects.get(id = oid)
+            listek = [iter.predmet,iter.termin,drug_termin.termin]
+            allout.append(listek)
+        #end
+
+        return render_to_response('cakalnicaSandbox.html',RequestContext(request,{'request': request,'termini': list, 'sodelujem': writeoutlist, 'sprejeto': allout}))
         return 0
 
 def brisi_ponudbo(request, id):
