@@ -69,15 +69,34 @@ def brisi_ponudbo(request, id):
             po = Parsedoffers.objects.get(id=id)
             #delete if in swaps
             swaps=Swaps.objects.filter(parsedofferid = id)
-            if len(swaps) > 0:
-                for entry in swaps:
-                    entry.valid=False
-                    entry.save()
+            auto_reject_swaps(swaps)
             o.offered = False
             o.save()
             po.offered = False
             po.save()
             return HttpResponseRedirect('/cakalnica/')
 
-def sprejmi_zamenjavo(request):
-    return 0;
+def sprejmi_zamenjavo(request, id):
+    #handle both offers
+    swap = Swaps.objects.get(id=id)
+    offer = Offers.objects.get(id=swap.offerid)
+    parsedoffer = Parsedoffers.objects.get(id=swap.parsedofferid)
+    swap.closed = True
+    offer.closed = True
+    parsedoffer.closed = True
+    swap.save()
+    offer.save()
+    parsedoffer.save()
+    #auto reject other swaps
+    swaps = Swaps.objects.filter(parsedofferid=swap.parsedofferid)
+    auto_reject_swaps(swaps)
+    swaps = Swaps.objects.filter(offerid=swap.offerid)
+    auto_reject_swaps(swaps)
+    return HttpResponseRedirect('/cakalnica/')
+
+def auto_reject_swaps(swaps):
+    if len(swaps) > 0:
+        for entry in swaps:
+            entry.closed=True
+            entry.valid=False
+            entry.save()
