@@ -37,6 +37,8 @@ def predlagaj_zamenjavo(request, id):
         return HttpResponseRedirect('/authUcilnica/')
     else:
         o=Offers.objects.get(id=id)
+        if o.user_id == request.user.id:
+            return HttpResponseRedirect('/firstFromUcilnica/')
         try:
             po=Parsedoffers.objects.get(user_id=request.user.id, predmet=o.predmet, closed=False)
         except:
