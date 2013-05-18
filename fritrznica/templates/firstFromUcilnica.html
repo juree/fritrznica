@@ -18,6 +18,11 @@
     </head>
     <body ng-controller="OffersCtrl">
     <div ng-show="isLoggedInUser(offer.user_id)">Show</div>
+    {% if state != "" %}
+        <div id="error" class="alert alert-error">
+            <small>{{ state }}</small>
+        </div>
+    {% endif %}
     Išči: <input ng-model="query">
     <hr c>
 

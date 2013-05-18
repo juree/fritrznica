@@ -16,32 +16,15 @@ def firstFrom_main(request):
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
+        state=""
         username = request.user
         vpisna = username.email
         ime = username.first_name
         priimek = username.last_name
-        return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request}))
-
-def brisi_ponudbo(request, id):
-    if not request.user.is_active:
-        return HttpResponseRedirect('/authUcilnica/')
-    else:
-        #funkcija bo vezana na drug url (/brisi) in id bo vedno podan
-        o = Offers.objects.get(id=id)
-        po = Parsedoffers.objects.get(id=id)
-        #delete if in swaps
-        swaps=Swaps.objects.filter(parsedofferid = id)
-        if len(swaps) > 0:
-            for entry in swaps:
-                entry.valid=False
-                entry.save()
-        o.offered = False
-        o.save()
-        po.offered = False
-        po.save()
-        return HttpResponseRedirect('/firstFromUcilnica/')
+        return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request, 'state': state}))
 
 def predlagaj_zamenjavo(request, id):
+    state = ""
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
@@ -59,9 +42,17 @@ def predlagaj_zamenjavo(request, id):
                     s.save()
                     return HttpResponseRedirect('/firstFromUcilnica/')
                 else:
-                    #TODO menjava ze obstaja
-                    return HttpResponseRedirect('/firstFromUcilnica/')
+                    state="Menjava ze obstaja!"
+                    username = request.user
+                    vpisna = username.email
+                    ime = username.first_name
+                    priimek = username.last_name
+                    return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request, 'state': state}))
         else:
-            #TODO menjava ni mozna
-            return HttpResponseRedirect('/firstFromUcilnica/')
+            state="Menjava ni mozna!"
+            username = request.user
+            vpisna = username.email
+            ime = username.first_name
+            priimek = username.last_name
+            return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request, 'state': state}))
 
