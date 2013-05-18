@@ -57,15 +57,18 @@ def contribute(request): #its sux, but works :)
             writeoutlist.append([predmet,mojtermin,tujtermin])
         #end
         #tretji del
-        version = Bidders.objects.get(user_id = request.user.id)
+        version = Bidders.objects.get(user_id = request.user.id).urnikVersion
         zaprte = Parsedoffers.objects.filter(user_id=request.user.id, version = version, closed=True)
         allout = []
         for iter in zaprte:
             listek = []
-            oid = Swaps.objects.filter(parsedofferid=iter.id).offerid
-            drug_termin = Offers.objects.get(id = oid)
-            listek = [iter.predmet,iter.termin,drug_termin.termin]
-            allout.append(listek)
+            swapek = Swaps.objects.filter(offerid=iter.id, closed = True, valid = True)
+            oid = 0
+            if len(swapek) != 0:
+                oid = swapek[0].parsedofferid
+                drug_termin = Parsedoffers.objects.get(id = oid)
+                listek = [iter.predmet,iter.termin,drug_termin.termin]
+                allout.append(listek)
         #end
 
         return render_to_response('cakalnicaSandbox.html',RequestContext(request,{'request': request,'termini': list, 'sodelujem': writeoutlist, 'sprejeto': allout}))
@@ -93,16 +96,25 @@ def sprejmi_zamenjavo(request, id):
     swap = Swaps.objects.get(id=id)
     offer = Offers.objects.get(id=swap.offerid)
     parsedoffer = Parsedoffers.objects.get(id=swap.parsedofferid)
+    parsedoffer1 = Parsedoffers.objects.get(id=swap.offerid)
+    offer1 = Offers.objects.filter(id=swap.parsedofferid)
+    if len(offer1) != 0:
+        offer1x = offer1[0]
+        offer1x.closed = True
+        offer1x.save()
+
     swap.closed = True
     offer.closed = True
     parsedoffer.closed = True
+    parsedoffer1.closed = True
     swap.save()
     offer.save()
     parsedoffer.save()
+    parsedoffer1.save()
     #auto reject other swaps
-    swaps = Swaps.objects.filter(parsedofferid=swap.parsedofferid)
+    swaps = Swaps.objects.filter(parsedofferid=swap.parsedofferid, closed=False)
     auto_reject_swaps(swaps, id)
-    swaps = Swaps.objects.filter(offerid=swap.offerid)
+    swaps = Swaps.objects.filter(offerid=swap.offerid, closed=False)
     auto_reject_swaps(swaps, id)
     return HttpResponseRedirect('/cakalnica/')
 

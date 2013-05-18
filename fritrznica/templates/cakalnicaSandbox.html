@@ -85,6 +85,7 @@
     <hr>
     <h4>Kaj je sprejeto?</h4>
     {% if sprejeto|length != 0 %}
+    <table class="table" border="0">
         <thead>
         <tr>
             <td><b>Predmet</b></td>
@@ -92,7 +93,21 @@
             <td><b>Novi termin</b></td>
         </tr>
         </thead>
+
     {% endif %}
+    <tbody>
+    {% for iter in sprejeto %}
+        <tr>
+            {% for element in iter %}
+                <td>
+                    {{ element }}
+                </td>
+            {% endfor %}
+
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
     </body>
     <div ng-view></div>
 {% endblock %}
