@@ -18,10 +18,22 @@
     </head>
     <body ng-controller="OffersCtrl">
     <div ng-show="isLoggedInUser(offer.user_id)">Show</div>
-    {% if state != "" %}
-        <div id="error" class="alert alert-error">
-            <small>{{ state }}</small>
-        </div>
+    {% if state > 0 %}
+        {% if state == 1 %}
+            <div id="error" class="alert alert-error">
+                <small>Nimas ustreznega predmeta za menjavo!</small>
+            </div>
+        {% endif %}
+        {% if state == 2 %}
+            <div id="error" class="alert alert-error">
+                <small>Ponudba ze obstaja!</small>
+            </div>
+        {% endif %}
+        {% if state == 3 %}
+            <div id="succes" class="alert alert-success">
+                <small>Uspesno ste ponudili zamenjavo.</small>
+            </div>
+        {% endif %}
     {% endif %}
     Išči: <input ng-model="query">
     <hr c>
