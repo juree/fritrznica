@@ -5,7 +5,6 @@ from django.http import HttpResponseRedirect
 from data.models import Parsedoffers, Offers, Swaps
 import datetime
 
-
 def profil(request):
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
@@ -16,7 +15,7 @@ def firstFrom_main(request):
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
-        state=""
+        state = ""
         username = request.user
         vpisna = username.email
         ime = username.first_name
@@ -29,7 +28,15 @@ def predlagaj_zamenjavo(request, id):
         return HttpResponseRedirect('/authUcilnica/')
     else:
         o=Offers.objects.get(id=id)
-        po=Parsedoffers.objects.get(user_id=request.user.id, predmet=o.predmet, closed=False)
+        try:
+            po=Parsedoffers.objects.get(user_id=request.user.id, predmet=o.predmet, closed=False)
+        except:
+            state="Nimas ustreznega predmeta za menjavo!"
+            username = request.user
+            vpisna = username.email
+            ime = username.first_name
+            priimek = username.last_name
+            return HttpResponseRedirect('/firstFromUcilnica/')
         if po is not None:
             if not Swaps.objects.filter(offerid=id, parsedofferid=po.id).exists():
                 s=Swaps(date=datetime.datetime.now(), closed=False, valid=True, offerid=id, parsedofferid=po.id)
@@ -48,11 +55,4 @@ def predlagaj_zamenjavo(request, id):
                     ime = username.first_name
                     priimek = username.last_name
                     return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request, 'state': state}))
-        else:
-            state="Menjava ni mozna!"
-            username = request.user
-            vpisna = username.email
-            ime = username.first_name
-            priimek = username.last_name
-            return render_to_response('firstFromUcilnica.html',RequestContext(request,{'username': username, 'vpisna': vpisna, 'ime': ime, 'priimek': priimek, 'request': request, 'state': state}))
 

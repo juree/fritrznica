@@ -32,3 +32,8 @@ class Swaps(models.Model):
     valid = models.BooleanField(default=True)
     offerid = models.IntegerField(default=-1) #ponudba z firstfromucilnica
     parsedofferid = models.IntegerField(default=-1) #moje vaje
+
+#00 - swaps ni veljaven
+#01 - swaps veljaven
+#10 - swaps zavrnjen
+#11 - swaps sprejet
