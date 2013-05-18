@@ -101,14 +101,15 @@ def sprejmi_zamenjavo(request, id):
     parsedoffer.save()
     #auto reject other swaps
     swaps = Swaps.objects.filter(parsedofferid=swap.parsedofferid)
-    auto_reject_swaps(swaps)
+    auto_reject_swaps(swaps, id)
     swaps = Swaps.objects.filter(offerid=swap.offerid)
-    auto_reject_swaps(swaps)
+    auto_reject_swaps(swaps, id)
     return HttpResponseRedirect('/cakalnica/')
 
-def auto_reject_swaps(swaps):
+def auto_reject_swaps(swaps, exclid):
     if len(swaps) > 0:
         for entry in swaps:
-            entry.closed=True
-            entry.valid=False
-            entry.save()
+            if entry.id != exclid:
+                entry.closed=True
+                entry.valid=False
+                entry.save()
