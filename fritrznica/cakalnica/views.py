@@ -130,13 +130,8 @@ def brisi_ponudbo(request, id):
         if o.user_id == request.user.id:
             po = Parsedoffers.objects.get(id=id)
             #delete if in swaps
-<<<<<<< HEAD
-            swaps = Swaps.objects.filter(parsedofferid=id)
-            auto_reject_swaps(swaps)
-=======
             swaps=Swaps.objects.filter(parsedofferid = id)
             auto_reject_swaps(swaps, -1)
->>>>>>> 4f3fb1a98f4ea34fb45efe9a55ff1706bc4ce9a9
             o.offered = False
             o.save()
             po.offered = False
