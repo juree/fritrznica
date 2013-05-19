@@ -44,14 +44,14 @@ def contribute(request):  # its sux, but works :)
                 pid = zamenjave[j].parsedofferid
                 zamenjava = Parsedoffers.objects.get(id=pid)
                 id_swap = zamenjave[j].id
-                toappend = [id_swap,zamenjava.termin]
+                toappend = [id_swap, zamenjava.termin]
                 listzamenjav.append(toappend)
                 # TODO close swap if accepted
             offer = Parsedoffers.objects.get(id=q[i].id)
             predmet = offer.predmet
             mojtermin = offer.termin
             id = q[i].id
-            list.append([predmet,id,mojtermin,listzamenjav])
+            list.append([predmet, id, mojtermin, listzamenjav])
             # list je v formatu [TIS,id,9.00,[tork,petk,pondelk,..]]
 
         #end
@@ -91,7 +91,7 @@ def contribute(request):  # its sux, but works :)
             listek = []
             swapek = Swaps.objects.filter(
                 Q(offerid=iter.id) | Q(parsedofferid=iter.id),
-                closed = True, valid = True)  # magic
+                closed=True, valid=True)  # magic
             notswapek = Swaps.objects.filter(
                 Q(offerid=iter.id) | Q(parsedofferid=iter.id),
                 closed=True, valid=False)
@@ -99,12 +99,12 @@ def contribute(request):  # its sux, but works :)
             if len(swapek) != 0:
                 oid = swapek[0].parsedofferid
                 drug_termin = Parsedoffers.objects.get(id=oid)
-                listek = [iter.predmet,iter.termin, drug_termin.termin]
+                listek = [iter.predmet, iter.termin, drug_termin.termin]
                 allout.append(listek)
             if len(notswapek) != 0:
                 oid = notswapek[0].parsedofferid
                 drug_termin = Parsedoffers.objects.get(id=oid)
-                listek = [iter.predmet,iter.termin,drug_termin.termin]
+                listek = [iter.predmet, iter.termin, drug_termin.termin]
                 notallout.append(listek)
         #end
 
@@ -130,7 +130,7 @@ def brisi_ponudbo(request, id):
         if o.user_id == request.user.id:
             po = Parsedoffers.objects.get(id=id)
             #delete if in swaps
-            swaps=Swaps.objects.filter(parsedofferid = id)
+            swaps = Swaps.objects.filter(parsedofferid=id)
             auto_reject_swaps(swaps, -1)
             o.offered = False
             o.save()
@@ -138,8 +138,10 @@ def brisi_ponudbo(request, id):
             po.save()
             return HttpResponseRedirect('/cakalnica/')
 
+
 def sprejmi_zamenjavo(request, id):
-    #handle both offers
+
+    # handle both offers
     swap = Swaps.objects.get(id=id)
     offer = Offers.objects.get(id=swap.offerid)
     parsedoffer = Parsedoffers.objects.get(id=swap.parsedofferid)
@@ -149,7 +151,6 @@ def sprejmi_zamenjavo(request, id):
         offer1x = offer1[0]
         offer1x.closed = True
         offer1x.save()
-
     swap.closed = True
     offer.closed = True
     parsedoffer.closed = True
@@ -166,6 +167,7 @@ def sprejmi_zamenjavo(request, id):
                                  closed=False)
     auto_reject_swaps(swaps, id)
     return HttpResponseRedirect('/cakalnica/')
+
 
 def auto_reject_swaps(swaps, exclid):
     if len(swaps) > 0:

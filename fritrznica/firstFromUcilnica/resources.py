@@ -3,12 +3,14 @@ from data.models import Offers
 from django.contrib.auth.models import User
 from tastypie import fields
 
+
 class UserResource(ModelResource):
 
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
         allowed_methods = ['get']
+
 
 class OffersResource(ModelResource):
 
@@ -20,11 +22,17 @@ class OffersResource(ModelResource):
 
         applicable_filters = {}
         # Normal filtering
-        filter_params = dict([(x, filters[x]) for x in filter(lambda x: not x.startswith('!'), filters)])
-        applicable_filters['filter'] = super(OffersResource, self).build_filters(filter_params)
+        filter_params = dict([(x, filters[x])
+                              for x in filter(lambda x: not x.startswith('!'),
+                                              filters)])
+        applicable_filters['filter'] =\
+            super(OffersResource, self).build_filters(filter_params)
         # Exclude filtering
-        exclude_params =  dict([(x[1:], filters[x]) for x in filter(lambda x: x.startswith('!'), filters)])
-        applicable_filters['exclude'] = super(OffersResource, self).build_filters(exclude_params)
+        exclude_params = dict([(x[1:], filters[x])
+                               for x in filter(lambda x: x.startswith('!'),
+                                               filters)])
+        applicable_filters['exclude'] =\
+            super(OffersResource, self).build_filters(exclude_params)
 
         return applicable_filters
 
@@ -44,8 +52,8 @@ class OffersResource(ModelResource):
         resource_name = 'offers'
         allowed_methods = ['get']
         filtering = {
-            "user" : 'exact',
-            "version" : 'exact',
-            "offered" : 'exact',
-            "closed" : 'exact',
+            "user": 'exact',
+            "version": 'exact',
+            "offered": 'exact',
+            "closed": 'exact',
         }
