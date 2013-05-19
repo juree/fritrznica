@@ -39,15 +39,19 @@ def user_login(request):
                     user.bidders.urnikVersion = urnikVersion
                     user.bidders.save()
                     for ent in vaje:
-                        po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion)
+                        po = Parsedoffers(user=user, termin=ent["termin"],
+                                          ucilnica=ent["ucilnica"],
+                                          predmet=ent["predmet"],
+                                          offered=False, version=urnikVersion)
                         po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
             #user not in database, connect to ucilnica and get user_info
             user_info = ucilnica_login(username, password)
             if user_info['valid']:
-                #user_info from ucilnica is valid, register user and perform login
-                #get info first (firstname, lastname, vpisna)
+                # user_info from ucilnica is valid, register
+                # user and perform login
+                # get info first (firstname, lastname, vpisna)
                 name = user_info['name']
                 name = re.split(" +", name)
                 firstname = name[0]
@@ -55,26 +59,53 @@ def user_login(request):
                 vpisna_st = user_info['vpisna_st']
                 if vpisna_st is None:
                     state = "Zal se nimas vpisne stevilke."
-                    return render_to_response('prijava.html', RequestContext(request, {'state': state, 'username': username}))
-                #register user
-                user_register(username, password, firstname, lastname, vpisna_st, urnikVersion)
+                    return render_to_response('prijava.html',
+                                              RequestContext(
+                                                  request,
+                                                  {
+                                                      'state': state,
+                                                      'username': username
+                                                  }
+                                              ))
+                # register user
+                user_register(username, password,
+                              firstname, lastname,
+                              vpisna_st, urnikVersion)
                 user = authenticate(username=username, password=password)
                 vaje = parseUrnik(user.bidders.vpisna, urnikVersion)
-                #update database(parsed offers)
+                # update database(parsed offers)
                 for ent in vaje:
-                    po = Parsedoffers(user=user, termin=ent["termin"], ucilnica=ent["ucilnica"], predmet=ent["predmet"], offered=False, version=urnikVersion)
+                    po = Parsedoffers(user=user, termin=ent["termin"],
+                                      ucilnica=ent["ucilnica"],
+                                      predmet=ent["predmet"],
+                                      offered=False, version=urnikVersion)
                     po.save()
                 login(request, user)
                 return HttpResponseRedirect("/firstFromUcilnica/")
             else:
                 #user_info from ucilnica is invalid! don't do anything
                 state = "Preveri svoje uporabniske podatke."
-                return render_to_response('prijava.html', RequestContext(request, {'state': state, 'username': username}))
-        return render_to_response('prijava.html', RequestContext(request, {'state': state, 'username': username}))
+                return render_to_response('prijava.html',
+                                          RequestContext(
+                                              request,
+                                              {
+                                                  'state': state,
+                                                  'username': username
+                                              }
+                                          ))
+        return render_to_response('prijava.html',
+                                  RequestContext(
+                                      request,
+                                      {
+                                          'state': state,
+                                          'username': username
+                                      }
+                                  ))
         state = ""
 
 
-def user_register(username, password, firstname, lastname, vpisna_st, urnik_version):
+def user_register(username, password, firstname, lastname,
+                  vpisna_st, urnik_version):
     user = User.objects.create_user(username, None, password)
     user.first_name = firstname
     user.last_name = lastname
@@ -86,11 +117,9 @@ def user_register(username, password, firstname, lastname, vpisna_st, urnik_vers
     #TODO check if 500 and 404 works.
 def server_error(request, template_name='500.html'):
         return render_to_response(template_name,
-                                  context_instance=RequestContext(request)
-        )
+                                  context_instance=RequestContext(request))
 
 
 def not_found(request, template_name='404.html'):
         return render_to_response(template_name,
-                                  context_instance=RequestContext(request)
-        )
+                                  context_instance=RequestContext(request))
