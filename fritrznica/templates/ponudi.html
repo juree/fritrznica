@@ -10,6 +10,7 @@
     <script src="../static/lib/angular-resource.js"></script>
     <script type="text/javascript">var USER_ID = "{{ request.user.id }}";</script>
     <script type="text/javascript">var VERSION = "{{ request.user.bidders.urnikVersion }}";</script>
+    <link href="../static/custom.css" rel="stylesheet" media="screen">
 {% endblock %}
 {% block content %}
     <head>
@@ -17,15 +18,26 @@
     </head>
     <body ng-controller="PonudiCtrl">
     <!--<hr c>-->
-    <table class="table" border="0">
+    <h4>Moji predmeti</h4>
+    <table class="table table-striped" border="0">
+        <thead ng-show="parsedoffers.objects.length != 0">
+        <tr>
+            <td><b>Predmet</b></td>
+            <td><b>Trenutni termin</b></td>
+            <td class="pull-right"><b>Ponudi zamenjavo</b></td>
+        </tr>
+        </thead>
+        <tbody ng-show="parsedoffers.objects.length != 0">
         <tr ng-repeat="offer in parsedoffers.objects">
             <td class="span6">{% verbatim %} {{offer.predmet}} {% endverbatim %}</td>
             <td>{% verbatim %} {{offer.termin}} {% endverbatim %}</td>
             <td>
-                <a href="../offer/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Ponudi</button></a>
+                <a href="../offer/{% verbatim %}{{offer.id}}{% endverbatim %}/" class="icon-ok pull-right"></a>
             </td>
         </tr>
+        </tbody>
     </table>
+    <p ng-show="parsedoffers.objects.length == 0">Vsi predmeti so že ponujeni. Za stanje poglej v čakalnico.</p>
     <!--<ul>
         <p ng-repeat="offer in parsedoffers.objects">
             {% verbatim %} {{offer.predmet}} {{offer.termin}} {{ offer.id }} {% endverbatim %}
