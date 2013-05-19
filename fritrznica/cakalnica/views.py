@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from data.models import Parsedoffers, Offers, Swaps, Bidders
+from django.db.models import Q
 
 
 def cakalnica(request):
@@ -14,8 +15,9 @@ def contribute(request): #its sux, but works :)
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
+        version = Bidders.objects.get(user_id = request.user.id).urnikVersion
         userid=request.user.id
-        q = Parsedoffers.objects.filter(user_id=userid, offered = True) #dobim termine ki jih je user ponudu
+        q = Parsedoffers.objects.filter(user_id=userid, offered = True, closed=False, version = version) #dobim termine ki jih je user ponudu
         predmet=""
         id=0
         mojtermin=""
@@ -24,17 +26,19 @@ def contribute(request): #its sux, but works :)
         for i in range(len(q)):
             listzamenjav = []
             #ent = [q[i].predmet,q[i].termin,q[i].id]
-            zamenjave=Swaps.objects.filter(offerid=q[i].id)
+            zamenjave=Swaps.objects.filter(offerid=q[i].id, closed=False, valid=True)
             for j in range(len(zamenjave)):
                 pid = zamenjave[j].parsedofferid
                 zamenjava = Parsedoffers.objects.get(id=pid)
-                listzamenjav.append(zamenjava.termin)
+                id_swap=zamenjave[j].id
+                toappend = [id_swap,zamenjava.termin]
+                listzamenjav.append(toappend)
                 #TODO close swap if accepted
             offer = Parsedoffers.objects.get(id=q[i].id)
             predmet = offer.predmet
             mojtermin = offer.termin
             id=q[i].id
-            list.append([predmet,mojtermin,id,listzamenjav]) #list je v formatu [TIS,9.00,1,[tork,petk,pondelk,..]]
+            list.append([predmet,id,mojtermin,listzamenjav]) #list je v formatu [TIS,id,9.00,[tork,petk,pondelk,..]]
 
         #end
         #-----
@@ -43,11 +47,11 @@ def contribute(request): #its sux, but works :)
         mojtermin=""
         tujtermin=""
         id =""
-        mojipredmeti = Parsedoffers.objects.filter(user_id=request.user.id)
+        mojipredmeti = Parsedoffers.objects.filter(user_id=request.user.id, closed = False, version=version)
         ustrezne_zamenjave = []
         writeoutlist = []
         for offr in mojipredmeti:
-            obj = Swaps.objects.filter(parsedofferid=offr.id)
+            obj = Swaps.objects.filter(parsedofferid=offr.id, closed = False, valid=True)
             for i in range(len(obj)):
                 ustrezne_zamenjave.append(obj[i])
         for iter in ustrezne_zamenjave:
@@ -57,21 +61,27 @@ def contribute(request): #its sux, but works :)
             writeoutlist.append([predmet,mojtermin,tujtermin])
         #end
         #tretji del
-        version = Bidders.objects.get(user_id = request.user.id).urnikVersion
         zaprte = Parsedoffers.objects.filter(user_id=request.user.id, version = version, closed=True)
         allout = []
+        notallout = []
         for iter in zaprte:
             listek = []
-            swapek = Swaps.objects.filter(offerid=iter.id, closed = True, valid = True)
+            swapek = Swaps.objects.filter(Q(offerid=iter.id) | Q(parsedofferid=iter.id), closed = True, valid = True) #magic
+            notswapek = Swaps.objects.filter(Q(offerid=iter.id) | Q(parsedofferid=iter.id), closed = True, valid = False)
             oid = 0
             if len(swapek) != 0:
                 oid = swapek[0].parsedofferid
                 drug_termin = Parsedoffers.objects.get(id = oid)
                 listek = [iter.predmet,iter.termin,drug_termin.termin]
                 allout.append(listek)
+            if len(notswapek) != 0:
+                oid = notswapek[0].parsedofferid
+                drug_termin = Parsedoffers.objects.get(id=oid)
+                listek = [iter.predmet,iter.termin,drug_termin.termin]
+                notallout.append(listek)
         #end
 
-        return render_to_response('cakalnicaSandbox.html',RequestContext(request,{'request': request,'termini': list, 'sodelujem': writeoutlist, 'sprejeto': allout}))
+        return render_to_response('cakalnicaSandbox.html',RequestContext(request,{'request': request,'termini': list, 'sodelujem': writeoutlist, 'sprejeto': allout, 'zavrnjeno': notallout}))
         return 0
 
 def brisi_ponudbo(request, id):
