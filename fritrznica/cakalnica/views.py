@@ -94,7 +94,7 @@ def brisi_ponudbo(request, id):
             po = Parsedoffers.objects.get(id=id)
             #delete if in swaps
             swaps=Swaps.objects.filter(parsedofferid = id)
-            auto_reject_swaps(swaps)
+            auto_reject_swaps(swaps, -1)
             o.offered = False
             o.save()
             po.offered = False
