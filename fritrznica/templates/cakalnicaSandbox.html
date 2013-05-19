@@ -23,8 +23,8 @@
             <thead>
             <tr>
                 <td><b>Predmet</b></td>
-                <td><b>Trenutni termin</b></td>
                 <td></td>
+                <td><b>Trenutni termin</b></td>
                 <td><b>&nbsp&nbsp&nbsp&nbsp&nbspPonujeni termini</b></td>
             </tr>
             </thead>
@@ -37,6 +37,9 @@
                     {{ iter }} <!-- predmet -->
                 {% endif %}
                 {% if forloop.counter0 == 1 %}
+                    <a href="../brisi/{{ iter }}" class="icon-remove"></a>
+                {% endif %}
+                {% if forloop.counter0 == 2 %}
                    {{ iter }} <!-- termin -->
                 {% endif %}
                 {% if forloop.last %}
@@ -44,7 +47,14 @@
                     {% for posamezen in iter %}
 
                             <ul>
-                                <a href="#"><button class="btn-primary pull-right" type="button">Sprejmi</button></a>{{ posamezen }}
+                            {% for id in posamezen %}
+                            {% if forloop.first %}
+                                <a href="../sprejmi/{{ id }}"><button class="btn-primary pull-right" type="button">Sprejmi</button></a>
+                            {% endif %}
+                            {% if forloop.last %}
+                                {{ id }}
+                            {% endif %}
+                            {% endfor %}
                             </ul>
 
                     {% endfor %}
@@ -97,6 +107,31 @@
     {% endif %}
     <tbody>
     {% for iter in sprejeto %}
+        <tr>
+            {% for element in iter %}
+                <td>
+                    {{ element }}
+                </td>
+            {% endfor %}
+
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <h4>Kaj ni sprejeto?</h4>
+    {% if zavrnjeno|length != 0 %}
+        <table class="table" border="0">
+        <thead>
+        <tr>
+            <td><b>Predmet</b></td>
+            <td><b>Trenutni termin</b></td>
+            <td><b>Željeni termin</b></td>
+        </tr>
+        </thead>
+
+    {% endif %}
+    <tbody>
+    {% for iter in zavrnjeno %}
         <tr>
             {% for element in iter %}
                 <td>
