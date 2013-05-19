@@ -27,6 +27,8 @@ def firstFrom_main(request):
             state = 1  # Nimas ustreznega predmeta za menjavo
         elif err == "2":
             state = 2  # Ponudba ze obstaja
+        elif err == "4":  # ze sprejeto
+            state = 4
         if succ == "1":
             state = 3  # Uspesno ste ponudili zamenjavo
         username = request.user
@@ -57,7 +59,12 @@ def predlagaj_zamenjavo(request, id):
             po = Parsedoffers.objects.get(user_id=request.user.id,
                                           predmet=o.predmet, closed=False)
         except:
-            return HttpResponseRedirect('/firstFromUcilnica/?error=1')
+            try:
+                po = Parsedoffers.objects.get(user_id=request.user.id,
+                                              predmet=o.predmet, closed=True)
+            except:
+                return HttpResponseRedirect('/firstFromUcilnica/?error=1')
+            return HttpResponseRedirect('/firstFromUcilnica/?error=4')
         if po is not None:
             if not Swaps.objects.filter(offerid=id,
                                         parsedofferid=po.id).exists():
