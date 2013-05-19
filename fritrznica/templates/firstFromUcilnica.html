@@ -10,7 +10,7 @@
     <script src="../static/angular/app.js"></script>
     <script src="../static/angular/services.js"></script>
     <script src="../static/lib/angular-resource.js"></script>
-
+    <link href="../static/custom.css" rel="stylesheet" media="screen">
 {% endblock %}
 {% block content %}
     <head>
@@ -21,21 +21,27 @@
     {% if state > 0 %}
         {% if state == 1 %}
             <div id="error" class="alert alert-error">
-                <small>Nimas ustreznega predmeta za menjavo!</small>
+                <small>Nimaš ustreznega predmeta za menjavo!</small>
             </div>
         {% endif %}
         {% if state == 2 %}
             <div id="error" class="alert alert-error">
-                <small>Ponudba ze obstaja!</small>
+                <small>Ponudba že obstaja!</small>
             </div>
         {% endif %}
         {% if state == 3 %}
             <div id="succes" class="alert alert-success">
-                <small>Uspesno ste ponudili zamenjavo.</small>
+                <small>Uspešno si ponudil zamenjavo.</small>
             </div>
         {% endif %}
+        {% if state == 4 %}
+            <div id="error" class="alert alert-error">
+                <small>Izbran predmet je že zamenjan in sprejet.</small>
+            </div>
+        {% endif %}
+
     {% endif %}
-    Išči: <input ng-model="query">
+    Išči: <input class="input-medium" ng-model="query">
     <hr c>
 
             <table class="table table-striped">
@@ -43,7 +49,7 @@
                     <tr>
                         <td><b>Predmet</b></td>
                         <td><b>Termin</b></td>
-                        <td><b>Predlagaj zamenjavo</b></td>
+                        <td class="pull-right"><b>Predlagaj zamenjavo</b></td>
                     </tr>
                     </thead>
                 <tr ng-repeat="offer in offers.objects | filter:query">
@@ -54,7 +60,7 @@
                         {% verbatim %}{{offer.termin}}{% endverbatim %}
                     </td>
                     <td>
-                        <a href="../tryoffer/{% verbatim %}{{offer.id}}{% endverbatim %}/"><button class="btn-primary pull-right" type="button">Zamenjaj</button></a>
+                        <a href="../tryoffer/{% verbatim %}{{offer.id}}{% endverbatim %}/" class="icon-ok pull-right"></a>
                     </td>
                 </tr>
             </table>

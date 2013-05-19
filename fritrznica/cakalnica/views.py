@@ -9,7 +9,7 @@ def cakalnica(request):
     if not request.user.is_active:
         return HttpResponseRedirect('/authUcilnica/')
     else:
-        return render_to_response('cakalnica.html',
+        return render_to_response('cakalnicaSandbox.html',
                                   RequestContext(
                                       request,
                                       {
@@ -44,7 +44,7 @@ def contribute(request):  # its sux, but works :)
                 pid = zamenjave[j].parsedofferid
                 zamenjava = Parsedoffers.objects.get(id=pid)
                 id_swap = zamenjave[j].id
-                toappend = [id_swap, zamenjava.termin]
+                toappend = [zamenjava.termin, id_swap]
                 listzamenjav.append(toappend)
                 # TODO close swap if accepted
             offer = Parsedoffers.objects.get(id=q[i].id)
@@ -52,7 +52,7 @@ def contribute(request):  # its sux, but works :)
             mojtermin = offer.termin
             id = q[i].id
             list.append([predmet, id, mojtermin, listzamenjav])
-            # list je v formatu [TIS,id,9.00,[tork,petk,pondelk,..]]
+            # list je v formatu [TIS,9.00,id,[tork,petk,pondelk,..]]
 
         #end
         #-----
@@ -99,7 +99,9 @@ def contribute(request):  # its sux, but works :)
             if len(swapek) != 0:
                 oid = swapek[0].parsedofferid
                 drug_termin = Parsedoffers.objects.get(id=oid)
-                listek = [iter.predmet, iter.termin, drug_termin.termin]
+                druga_vpisna = drug_termin.user.bidders.vpisna
+                listek = [iter.predmet, iter.termin,
+                          drug_termin.termin, druga_vpisna]
                 allout.append(listek)
             if len(notswapek) != 0:
                 oid = notswapek[0].parsedofferid
