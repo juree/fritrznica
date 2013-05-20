@@ -1,0 +1,28 @@
+{% extends "basic.html" %}
+{% block attributes %}
+    ng-app="trznica"
+{% endblock %}
+{% block scrpipts %}
+    <link rel="stylesheet" href="../static/bubbles/css/reset.css">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/bubbles/css/style.css">
+    <!-- end CSS-->
+
+    <script src="../static/bubbles/js/libs/modernizr-2.0.6.min.js"></script>
+{% endblock %}
+{% block content %}
+    <head>
+        <title>FriTržnica - vizualizacija</title>
+    </head>
+    <body>
+    <div id="vis"></div>
+    <script>window.jQuery || document.write('<script src="../static/bubbles/js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+    <script defer src="../static/bubbles/js/plugins.js"></script>
+    <script src="../static/bubbles/js/libs/coffee-script.js"></script>
+    <script src="../static/bubbles/js/libs/d3.v2.js"></script>
+    <script type="text/coffeescript" src="../static/bubbles/coffee/vis.coffee"></script>
+    </body>
+
+{% endblock %}
