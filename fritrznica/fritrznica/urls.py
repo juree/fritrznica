@@ -40,6 +40,7 @@ urlpatterns = \
          'firstFromUcilnica.views.predlagaj_zamenjavo'),
         (r'^sprejmi/(?P<id>\d+)/$', 'cakalnica.views.sprejmi_zamenjavo'),
         (r'^cakalnica/$', 'cakalnica.views.contribute'),
+        (r'^bubbles/$', 'bubbles.views.showBubble'),
         (r'^api/', include(v1_api.urls)),
 
         # (r'^registracija/$', 'registracija.views.user_register'),
