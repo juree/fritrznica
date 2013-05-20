@@ -37,15 +37,12 @@ def create_csv():
         string = string.replace(' LV', '')
         string = "".join(e[0] for e in string.split())
         predmeti[i] = string
-    with open('static/bubbles/data/data.csv','wb') as csvfile:
+    with open('static/bubbles/data/data.csv', 'wb') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='',
                                 quoting=csv.QUOTE_NONE)
-        spamwriter.writerow(['name','count'])
+        spamwriter.writerow(['name', 'count'])
         for i in range(len(predmeti)):
-            spamwriter.writerow([predmeti[i],count[i]])
+            spamwriter.writerow([predmeti[i], count[i]])
 
     csvfile.close()
-
-
-
