@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from data.models import Parsedoffers, Offers
+from bubbles.views import create_csv
 
 
 def cakalnica(request):
@@ -20,6 +21,7 @@ def offer(request, id=-1):
     else:
         if id < 0:
             # ID ni podan
+            create_csv()
             return render_to_response('ponudi.html',
                                       RequestContext(
                                           request,
@@ -42,4 +44,5 @@ def offer(request, id=-1):
                                   predmet=off.predmet, version=off.version,
                                   offered=True, closed=False)
                     off1.save()
+
                 return HttpResponseRedirect('/offer/')
