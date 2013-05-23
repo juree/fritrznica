@@ -100,6 +100,10 @@ def contribute(request):  # its sux, but works :)
                 oid = swapek[0].parsedofferid
                 drug_termin = Parsedoffers.objects.get(id=oid)
                 druga_vpisna = drug_termin.user.bidders.vpisna
+                if druga_vpisna == request.user.bidders.vpisna:
+                    myid = swapek[0].offerid
+                    ter = Parsedoffers.objects.get(id=myid)
+                    druga_vpisna = ter.user.bidders.vpisna
                 listek = [iter.predmet, iter.termin,
                           drug_termin.termin, druga_vpisna]
                 allout.append(listek)
