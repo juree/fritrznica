@@ -1,7 +1,7 @@
 FriTrznica - menjalnica vaj
 ==========
 
-Default admin username/password:
+Default admin username/password:\n
 admin
 admin
 
