@@ -85,6 +85,9 @@ def contribute(request):  # its sux, but works :)
         zaprte = Parsedoffers.objects.filter(user_id=request.user.id,
                                              version=version,
                                              closed=True)
+        odprte = Parsedoffers.objects.filter(user_id=request.user.id,
+                                             version=version,
+                                             closed=False)
         allout = []
         notallout = []
         for iter in zaprte:
@@ -92,20 +95,31 @@ def contribute(request):  # its sux, but works :)
             swapek = Swaps.objects.filter(
                 Q(offerid=iter.id) | Q(parsedofferid=iter.id),
                 closed=True, valid=True)  # magic
-            notswapek = Swaps.objects.filter(
-                Q(offerid=iter.id) | Q(parsedofferid=iter.id),
-                closed=True, valid=False)
             oid = 0
             if len(swapek) != 0:
                 oid = swapek[0].parsedofferid
+                myid = swapek[0].offerid
                 drug_termin = Parsedoffers.objects.get(id=oid)
+                if drug_termin.id == iter.id:
+                    drug_termin = Parsedoffers.objects.get(id=myid)
                 druga_vpisna = drug_termin.user.bidders.vpisna
+                if druga_vpisna == request.user.bidders.vpisna:
+                    myid = swapek[0].offerid
+                    ter = Parsedoffers.objects.get(id=myid)
+                    druga_vpisna = ter.user.bidders.vpisna
                 listek = [iter.predmet, iter.termin,
                           drug_termin.termin, druga_vpisna]
                 allout.append(listek)
+        for iter in odprte:
+            notswapek = Swaps.objects.filter(
+                Q(offerid=iter.id) | Q(parsedofferid=iter.id),
+                closed=True, valid=False)
             if len(notswapek) != 0:
                 oid = notswapek[0].parsedofferid
+                myid = notswapek[0].offerid
                 drug_termin = Parsedoffers.objects.get(id=oid)
+                if drug_termin.id == iter.id:
+                    drug_termin = Parsedoffers.objects.get(id=myid)
                 listek = [iter.predmet, iter.termin, drug_termin.termin]
                 notallout.append(listek)
         #end
