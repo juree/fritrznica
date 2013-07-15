@@ -42,17 +42,26 @@
 
     {% endif %}
     Išči: <input class="input-medium" ng-model="query">
+    Dan: <select ng-model="day">
+            <option selected="selected" value="">Vsi dnevi</option>
+            <option value="ponedeljek">Ponedeljek</option>
+            <option value="torek">Torek</option>
+            <option value="sreda">Sreda</option>
+            <option value="četrtek">Četrtek</option>
+            <option value="petek">Petek</option>
+         </select>
     <hr c>
 
             <table class="table table-striped">
                     <thead>
                     <tr>
-                        <td><b>Predmet</b></td>
-                        <td><b>Termin</b></td>
-                        <td class="pull-right"><b>Predlagaj zamenjavo</b></td>
+                        <td ng-show="(offers.objects | filter:query | filter:day).length>0"><b>Predmet</b></td>
+                        <td ng-show="(offers.objects | filter:query | filter:day).length>0"><b>Termin</b></td>
+                        <td ng-show="(offers.objects | filter:query | filter:day).length>0" class="pull-right"><b>Predlagaj zamenjavo</b></td>
                     </tr>
                     </thead>
-                <tr ng-repeat="offer in offers.objects | filter:query">
+                <tr ng-repeat="offer in offers.objects | filter:query | filter:day">
+                    <p ng-show="(offers.objects | filter:query | filter:day).length==0">Nobena ponudba ne ustreza kriterijem iskanja</p>
                     <td>
                         {% verbatim %}{{offer.predmet}}{% endverbatim %}
                     </td>
