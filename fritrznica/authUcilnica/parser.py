@@ -36,4 +36,5 @@ def parseVersion():
     page = urllib2.urlopen(url)
     soup = BeautifulSoup(page.read())
 
-    return soup.find("input", {"name": "timetable"})["value"]
+    return '156'
+    #return soup.find("input", {"name": "timetable"})["value"]
